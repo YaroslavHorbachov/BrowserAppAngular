@@ -1,0 +1,60 @@
+<div>
+  <h1>Register to Site! </h1>
+  <form (ngSubmit)="submitForm(formRegister)" #formRegister="ngForm">
+    <label>First Name</label>
+    <input
+      type="text"
+      placeholder="Your name"
+      name="fname"
+      size="12"
+      minlength="3"
+      maxlength="40"
+      required
+      ngModel>
+    <br>
+    <label>Last Name</label>
+    <input
+      type="email"
+      placeholder="Your surname"
+      name="lname"
+      size="26"
+      maxlength="40"
+      required
+      ngModel>
+    <br>
+    <label>Email</label>
+    <input
+      type="email"
+      placeholder="Put Email"
+      name="email"
+      size="26"
+      minlength="8"
+      maxlength="52"
+      required
+      ngModel>
+    <br>
+    <label>Password</label>
+    <input
+      type="password"
+      placeholder="Put Password"
+      size="36"
+      minlength="8"
+      maxlength="64"
+      name="password"
+      required
+      ngModel>
+    <br>
+    <label>Check Password</label>
+    <input type="password"
+           placeholder="Put Password Again"
+           size="36"
+           minlength="6"
+           maxlength="64"
+           name="password2"
+           required
+           ngModel>
+    <br>
+    <input type="submit">
+  </form>
+  <h1 *ngIf = 'formRegister.submitted' [ngStyle]="{'color' : stateData === 'VALID'? 'green': 'red'}"> {{stateData}}</h1>
+</div>

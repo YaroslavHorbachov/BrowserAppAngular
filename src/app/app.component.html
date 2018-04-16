@@ -1,0 +1,11 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <a routerLink="" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"> Home </a>
+  <a *ngIf='!isAuth' routerLink="/login" routerLinkActive="active" > Login </a>
+  <a *ngIf='!isAuth' routerLink="/register" routerLinkActive="active" > Register </a>
+  <a *ngIf='isAuth' (click)="toAuth(false)">Log Out</a>
+  <a routerLink="/tima" routerLinkActive="active"> To Not Found </a>
+  <router-outlet (auth)="toAuth($event)"></router-outlet>
+
+</div>
+

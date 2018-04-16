@@ -1,0 +1,28 @@
+<h1>
+Login page !
+</h1>
+<form (ngSubmit)="submitForm(formLogin)" #formLogin="ngForm">
+  <label>Email</label>
+  <input
+    type="email"
+    placeholder="Your Email"
+    name="email"
+    size="26"
+    minlength="8"
+    maxlength="52"
+    required
+    ngModel>
+  <br>
+  <label>Password</label>
+  <input
+    type="password"
+    placeholder="Your Password"
+    size="36"
+    minlength="8"
+    maxlength="64"
+    name="password"
+    required
+    ngModel>
+  <br>
+  <input type="submit">
+</form>
