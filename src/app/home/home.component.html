@@ -1,3 +1,16 @@
-<div>
-  <h1>Home </h1>
-</div>
+<mat-card>
+  <div>
+    <h1>Home </h1>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="createAdmin()">Open Admin Assess</button>
+  <br>
+  <button mat-raised-button color="accent" [disabled]="isDisabled" (click)="openView()">View Log</button>
+  <br>
+  <button mat-raised-button color="warn" (click)="deleteAdmin()">Close Admin Assess</button>
+  <br>
+  <div *ngIf="dataJson && !isDisabled">
+    <p *ngFor="let i of dataJson">{{i}}</p>
+  </div>
+
+</mat-card>

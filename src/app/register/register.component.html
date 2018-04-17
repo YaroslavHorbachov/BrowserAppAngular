@@ -1,60 +1,72 @@
-<div>
-  <h1>Register to Site! </h1>
-  <form (ngSubmit)="submitForm(formRegister)" #formRegister="ngForm">
-    <label>First Name</label>
-    <input
-      type="text"
-      placeholder="Your name"
-      name="fname"
-      size="12"
-      minlength="3"
-      maxlength="40"
-      required
-      ngModel>
+<mat-card>
+  <mat-card-title>
+    Register to Site!
+  </mat-card-title>
+  <form  #formRegister="ngForm">
+    <mat-form-field>
+      <input matInput
+             type="text"
+             placeholder="First Name"
+             name="fname"
+             size="12"
+             minlength="3"
+             maxlength="40"
+             required
+             ngModel>
+    </mat-form-field>
     <br>
-    <label>Last Name</label>
-    <input
-      type="email"
-      placeholder="Your surname"
-      name="lname"
-      size="26"
-      maxlength="40"
-      required
-      ngModel>
+    <mat-form-field>
+      <input matInput
+             type="email"
+             placeholder="Last Name"
+             name="lname"
+             size="26"
+             maxlength="40"
+             required
+             ngModel>
+    </mat-form-field>
     <br>
-    <label>Email</label>
-    <input
-      type="email"
-      placeholder="Put Email"
-      name="email"
-      size="26"
-      minlength="8"
-      maxlength="52"
-      required
-      ngModel>
+    <mat-form-field>
+      <input matInput
+             type="email"
+             placeholder="Email"
+             name="email"
+             size="26"
+             minlength="8"
+             maxlength="52"
+             required
+             ngModel>
+    </mat-form-field>
     <br>
-    <label>Password</label>
-    <input
-      type="password"
-      placeholder="Put Password"
-      size="36"
-      minlength="8"
-      maxlength="64"
-      name="password"
-      required
-      ngModel>
+    <mat-form-field>
+      <input matInput
+             type="password"
+             placeholder="Password"
+             size="36"
+             minlength="8"
+             maxlength="64"
+             name="password"
+             required
+             ngModel>
+    </mat-form-field>
     <br>
-    <label>Check Password</label>
-    <input type="password"
-           placeholder="Put Password Again"
-           size="36"
-           minlength="6"
-           maxlength="64"
-           name="password2"
-           required
-           ngModel>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Check Password"
+        size="36"
+        minlength="6"
+        maxlength="64"
+        name="password2"
+        required
+        ngModel>
+    </mat-form-field>
     <br>
-    <input type="submit">
+
+    <button mat-raised-button color="primary" type="submit" (click)="submitForm(formRegister)">Send</button>
+
   </form>
-  <h1 *ngIf = 'formRegister.submitted' [ngStyle]="{'color' : stateData === 'VALID'? 'green': 'red'}"> {{stateData}}</h1>
-</div>
+  <h1 *ngIf='stateData !== false' [ngStyle]="{'color' : stateData === 'VALID'? 'green': 'red'}"> {{stateData}}</h1>
+
+</mat-card>

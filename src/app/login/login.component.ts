@@ -9,7 +9,6 @@ import {IResponseData} from '../iresponse-data';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @Output() auth: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private register: ConnectServerService, private router: Router) {
   }
@@ -25,17 +24,13 @@ export class LoginComponent implements OnInit {
     // console.log(dataJson);
     this.register.getLogin(JSON.stringify(dataJson))
       .subscribe(
-        (data: IResponseData) => {
-          console.log('Confirmed Response', data.state);
-          if (data.state === 'done') {
-            this.register.getAuth().next(true)
-            this.router.navigate(['/']);
-          } else {
-            this.register.getAuth().next(false)
-          }
+        (data) => {
+          console.log('Confirmed Response', data);
+          this.register.authToTrue();
+          setTimeout(empty => this.router.navigate(['/']), 5000);
         },
-        (err: IResponseData) => {
-          this.auth.emit(false);
+        (err) => {
+          this.register.authToFalse();
           console.log('Client have response error ', err);
         }
       );

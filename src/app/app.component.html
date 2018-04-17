@@ -1,10 +1,23 @@
 <!--The content below is only a placeholder and can be replaced.-->
+
+
 <div style="text-align:center">
-  <a routerLink="" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"> Home </a>
-  <a *ngIf='!isAuth' routerLink="/login" routerLinkActive="active" > Login </a>
-  <a *ngIf='!isAuth' routerLink="/register" routerLinkActive="active" > Register </a>
-  <a *ngIf='isAuth' (click)="toAuth(false)">Log Out</a>
-  <a routerLink="/tima" routerLinkActive="active"> To Not Found </a>
+
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link routerLink="" > Home </a>
+      <a mat-tab-link *ngIf='!isAuth' routerLink="/login"  > Login </a>
+      <a mat-tab-link *ngIf='!isAuth' routerLink="/register" > Register </a>
+      <a mat-tab-link *ngIf='isAuth' (click)="toAuth()">Log Out</a>
+      <a mat-tab-link routerLink="/tima" > Not Found </a>
+
+    </nav>
+
+
+
+
+
+
+
   <router-outlet (auth)="toAuth($event)"></router-outlet>
 
 </div>

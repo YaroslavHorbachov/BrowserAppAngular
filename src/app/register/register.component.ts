@@ -22,30 +22,38 @@ export class RegisterComponent implements OnInit {
   }
 
   setStateData(value) {
-    this.register.getAuth().next(value);
     if (value) {
+      this.register.authToTrue();
       this.stateData = 'VALID';
     } else {
+      this.register.authToFalse();
       this.stateData = 'INVALID';
     }
 
   }
 
-  submitForm(dataForm): void {
+  submitForm(dataForm): boolean {
     const dataJson = {};
     const controls = dataForm._directives;
     controls.forEach(item => dataJson[item.name] = item.control.value);
     console.log(dataJson);
-    this.register.getRegister(JSON.stringify(dataJson))
-      .subscribe(
-        (data: IResponseData) => {
-          console.log(data);
-          data.state === 'done' ? this.setStateData(true) : this.setStateData(false);
-          setTimeout(empty => this.router.navigate(['/']), 3000);
-        },
-        (err) => {
-          setTimeout(empty => this.router.navigate(['/']), 5000);
-          console.log('Error on client', err);
-        });
+    if (dataForm.form.status === 'INVALID') {
+      this.setStateData(false);
+      return false;
+    } else {
+      this.register.getRegister(JSON.stringify(dataJson))
+        .subscribe(
+          (data: IResponseData) => {
+            console.log(data);
+            this.setStateData(true);
+            setTimeout(empty => this.router.navigate(['/']), 3000);
+          },
+          (err) => {
+            console.log('Error on client', err);
+            this.setStateData(false);
+            setTimeout(empty => this.router.navigate(['/']), 5000);
+          });
+    }
+
   }
 }
