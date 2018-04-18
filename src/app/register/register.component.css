@@ -1,0 +1,16 @@
+
+.fileDataBox{
+
+  display: block;
+  /*float:left;*/
+}
+.fileDataBox span {
+  /*padding: 10px;*/
+  margin: 10px;
+}
+.buttonBox {
+  display: inline-block;
+  position: fixed;
+  left: 10px;
+  float: left;
+}

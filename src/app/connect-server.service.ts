@@ -4,7 +4,7 @@ import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class ConnectServerService {
-  Auth: boolean;
+
 
   constructor(private http: HttpClient) {
   }
@@ -18,6 +18,7 @@ export class ConnectServerService {
     })
   };
 
+
   getRegister(json) {
     return this.http.post(this.apiRootRegister, json, this.httpOptions);
   }
@@ -26,8 +27,8 @@ export class ConnectServerService {
     return this.http.post(this.apiRootLogin, json, this.httpOptions);
   }
 
-  authToTrue() {
-    document.cookie = 'isAuth=true; expires=Thu, 01 Jan' + (new Date()).getFullYear() + 1 + ' 00:00:00 UTC;';
+  authToTrue(name) {
+    document.cookie = `isAuth=true&${name}; expires=Thu, 01 Jan' + (new Date()).getFullYear() + 1 + ' 00:00:00 UTC;`;
   }
 
   authToFalse() {
@@ -35,10 +36,19 @@ export class ConnectServerService {
   }
 
   authCheck() {
-    return document.cookie
-      .split(';')
-      .map(pair => pair.trim().split('='))
-      .filter(pair => pair[0] === 'isAuth')[0][1] === 'true';
+    try {
+      const stateSess = document.cookie
+        .split(';')
+        .map(pair => pair.trim().split('='))
+        .filter(pair => pair[0] === 'isAuth')[0][1].split('&');
+      if (stateSess[0] === 'true') {
+        return [true, stateSess[1]];
+      } else {
+        throw new Error();
+      }
+    } catch (e) {
+      return [false];
+    }
   }
 
   createAdminCookie() {

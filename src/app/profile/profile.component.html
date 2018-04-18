@@ -1,0 +1,65 @@
+<mat-card>
+  <mat-card-title> Settings</mat-card-title>
+  <mat-card-subtitle>You can change your avatar and person data</mat-card-subtitle>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          New personal data
+        </mat-panel-title>
+        <mat-panel-description>
+          Type your new name and surname
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form #formChangePersonData="ngForm">
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 placeholder="First Name"
+                 name="fname"
+                 size="12"
+                 minlength="3"
+                 maxlength="40"
+                 required
+                 ngModel>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 type="email"
+                 placeholder="Last Name"
+                 name="lname"
+                 size="26"
+                 maxlength="40"
+                 required
+                 ngModel>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="submitForm(formChangePersonData)"> Primary</button>
+      </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel class="formBox">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          You can change avatar
+        </mat-panel-title>
+        <mat-panel-description>
+          You can upload file less then 2Mb
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="form">
+        <label for="avatar" class="btn btn-primary btn-sm ">Upload your file</label>
+        <input id="avatar" style="display: none" type="file" #file (change)="submitImageForm(file)" >
+        <button mat-raised-button color="primary" [disabled]="!isCanBeActive" (click)="sendFormFileData()">Done</button>
+
+        <ol *ngIf="fileName && fileSize" class="fileDataBox">
+          <li><b>File Name</b> : {{fileName}}</li>
+          <li><b>File Size</b> : {{fileSize}} Mb</li>
+        </ol>
+        <img  alt="">
+
+      </form>
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

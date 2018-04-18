@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   constructor(private register: ConnectServerService, private router: Router) {
   }
 
-
   ngOnInit() {
   }
 
@@ -21,12 +20,10 @@ export class LoginComponent implements OnInit {
     const dataJson = {};
     const controls = dataForm._directives;
     controls.forEach(item => dataJson[item.name] = item.control.value);
-    // console.log(dataJson);
     this.register.getLogin(JSON.stringify(dataJson))
       .subscribe(
-        (data) => {
-          console.log('Confirmed Response', data);
-          this.register.authToTrue();
+        (data: any) => {
+          this.register.authToTrue(data.fname);
           setTimeout(empty => this.router.navigate(['/']), 5000);
         },
         (err) => {

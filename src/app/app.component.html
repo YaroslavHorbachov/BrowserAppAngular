@@ -1,8 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 
-<div style="text-align:center">
-
+<div style="text-align:center;">
     <nav mat-tab-nav-bar>
       <a mat-tab-link routerLink="" > Home </a>
       <a mat-tab-link *ngIf='!isAuth' routerLink="/login"  > Login </a>
@@ -10,15 +9,18 @@
       <a mat-tab-link *ngIf='isAuth' (click)="toAuth()">Log Out</a>
       <a mat-tab-link routerLink="/tima" > Not Found </a>
 
+      <div style="float: right" *ngIf="isAuth">
+        <span class="personBox" [matMenuTriggerFor]="menu">{{namePerson}}</span>
+        <mat-icon>account_circle</mat-icon>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item routerLink="profile">
+            <mat-icon>build</mat-icon>
+            <span>Settings</span>
+          </button>
+        </mat-menu>
+      </div>
     </nav>
 
-
-
-
-
-
-
   <router-outlet (auth)="toAuth($event)"></router-outlet>
-
 </div>
 
