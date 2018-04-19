@@ -44,22 +44,15 @@
         <mat-panel-description>
           You can upload file less then 2Mb
         </mat-panel-description>
+        <p-fileUpload mode="basic" chooseLabel="Browse" name="myfile" [url]="apiChangeRoute" auto="auto"></p-fileUpload>
+        <button > Submit </button>
+
+        <!--maxFileSize="2000000"-->
       </mat-expansion-panel-header>
 
-      <form [formGroup]="form">
-        <label for="avatar" class="btn btn-primary btn-sm ">Upload your file</label>
-        <input id="avatar" style="display: none" type="file" #file (change)="submitImageForm(file)" >
-        <button mat-raised-button color="primary" [disabled]="!isCanBeActive" (click)="sendFormFileData()">Done</button>
-
-        <ol *ngIf="fileName && fileSize" class="fileDataBox">
-          <li><b>File Name</b> : {{fileName}}</li>
-          <li><b>File Size</b> : {{fileSize}} Mb</li>
-        </ol>
-        <img  alt="">
-
-      </form>
 
 
     </mat-expansion-panel>
   </mat-accordion>
 </mat-card>
+<img src="http://localhost:3020/images/myfilebackground.jpg" alt="Avatar" >

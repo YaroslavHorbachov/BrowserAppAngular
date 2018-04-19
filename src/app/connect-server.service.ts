@@ -14,8 +14,9 @@ export class ConnectServerService {
   apiRootLog = 'http://localhost:3020/log';
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+      'Content-Type': 'application/json',
+      'withCredentials': 'true'
+    }),
   };
 
 
@@ -27,8 +28,8 @@ export class ConnectServerService {
     return this.http.post(this.apiRootLogin, json, this.httpOptions);
   }
 
-  authToTrue(name) {
-    document.cookie = `isAuth=true&${name}; expires=Thu, 01 Jan' + (new Date()).getFullYear() + 1 + ' 00:00:00 UTC;`;
+  authToTrue(data) {
+    document.cookie = `isAuth=true&${JSON.stringify(data)}; expires=Thu, 01 Jan' + (new Date()).getFullYear() + 1 + ' 00:00:00 UTC;`;
   }
 
   authToFalse() {
@@ -42,7 +43,10 @@ export class ConnectServerService {
         .map(pair => pair.trim().split('='))
         .filter(pair => pair[0] === 'isAuth')[0][1].split('&');
       if (stateSess[0] === 'true') {
-        return [true, stateSess[1]];
+        const dataCatch = JSON.parse(stateSess[1]);
+        const name = dataCatch.name;
+        const id = dataCatch.id;
+        return [true, name];
       } else {
         throw new Error();
       }

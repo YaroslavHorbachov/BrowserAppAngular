@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     this.register.getLogin(JSON.stringify(dataJson))
       .subscribe(
         (data: any) => {
-          this.register.authToTrue(data.fname);
+          const dataSend = {name: data.fname, id: data.id};
+          this.register.authToTrue(dataSend);
           setTimeout(empty => this.router.navigate(['/']), 5000);
         },
         (err) => {

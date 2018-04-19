@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProfileService} from '../profile.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
   fileSize: string;
   isCanBeActive = false;
   form: FormGroup;
+  apiChangeRoute = 'http://localhost:3020/api/change';
 
   constructor(private _profile: ProfileService, private fb: FormBuilder) {
     this.createForm();
@@ -47,12 +48,16 @@ export class ProfileComponent implements OnInit {
       console.log('file onload');
     };
   }
-  sendFormFileData() {
-    const formData = this.form.value;
-    console.log(formData);
+
+  sendFormFileData(f: NgForm) {
+    /*const avatar = File(f.value);
+    console.log(avatar);
+    const formData: FormData = new FormData();
+    formData.append('uploadFile', avatar, avatar.name);
+
     this._profile.send(formData).subscribe(data => {
       console.log(data);
-    })
+    });*/
   }
 
 }

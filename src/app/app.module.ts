@@ -15,7 +15,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
 import {ProfileComponent} from './profile/profile.component';
 import {ProfileService} from './profile.service';
-
+import {FileUploadModule} from 'primeng/fileupload';
+import {ManagementComponent} from './management/management.component';
+import {ManagementService} from './management.service';
 
 const appRoutes: Routes = [
   {
@@ -31,8 +33,11 @@ const appRoutes: Routes = [
     path: 'profile', pathMatch: 'full', component: ProfileComponent
   },
   {
-    path: '**', pathMatch: 'full', component: NotFoundComponent
+    path: 'user-management', pathMatch: 'full', component: ManagementComponent
   },
+  {
+    path: '**', pathMatch: 'full', component: NotFoundComponent
+  }
 ];
 
 
@@ -43,9 +48,11 @@ const appRoutes: Routes = [
     HomeComponent,
     NotFoundComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    ManagementComponent
   ],
   imports: [
+    FileUploadModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     BrowserModule,
@@ -54,8 +61,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     MaterialModule
   ],
-  providers: [ConnectServerService,
-    ProfileService],
+  providers: [
+    ConnectServerService,
+    ProfileService,
+    ManagementService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

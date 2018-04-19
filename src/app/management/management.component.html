@@ -1,0 +1,56 @@
+<div class="header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+
+<div class="container mat-elevation-z8">
+  <mat-table #table [dataSource]="listUser" matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Base ID</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element._id}}</mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="fname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> First Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fname}}</mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="lname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.lname}}</mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.email}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef>
+      <cdk-row *cdkRowDef="let row; columns: ['age', 'username']"
+               [class.can-vote]="row.age >= 18"
+               >
+      </cdk-row>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="listUserHead"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: listUserHead;"></mat-row>
+
+
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+

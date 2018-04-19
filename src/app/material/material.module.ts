@@ -6,16 +6,17 @@ import {
   MatCheckboxModule, MatExpansionModule,
   MatIconModule,
   MatInputModule,
-  MatMenuModule,
+  MatMenuModule, MatPaginatorModule, MatTableModule,
   MatTabsModule
 } from '@angular/material';
+import {CdkTableModule} from '@angular/cdk/table';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule
+    MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule, MatTableModule, MatPaginatorModule, CdkTableModule
   ],
-  exports: [MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule
+  exports: [MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule, MatTableModule, MatPaginatorModule, CdkTableModule
   ],
   declarations: []
 })
