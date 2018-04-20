@@ -36,13 +36,13 @@ export class RegisterComponent implements OnInit {
     const dataJson:  any = {};
     const controls = dataForm._directives;
     controls.forEach(item => dataJson[item.name] = item.control.value);
-    console.log('JSON ', dataJson);
+    console.log('JSON ', dataForm.value);
     if (dataForm.form.status === 'INVALID' || dataJson.password !== dataJson.password2) {
 
       this.setStateData(false);
       return false;
     } else {
-      this.register.getRegister(JSON.stringify(dataJson))
+      this.register.getRegister(dataForm.value)
         .subscribe(
           (data: any) => {
             console.log('Here create new user', data);

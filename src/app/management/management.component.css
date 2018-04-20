@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 400px;
 }
 
 .header {
@@ -17,4 +17,15 @@
 .mat-table {
   overflow: auto;
   max-height: 500px;
+}
+
+mat-row:hover {
+  background-color: darkmagenta;
+}
+
+mat-row:hover > mat-cell > span {
+  color: aliceblue;
+}
+mat-row>mat-cell>img{
+  width: 50px;
 }

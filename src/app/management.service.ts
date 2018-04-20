@@ -4,14 +4,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 @Injectable()
 export class ManagementService {
 
-  constructor(private _h: HttpClient) {}
+  constructor(private _h: HttpClient) {
+  }
 
   apiRootUserList = 'http://localhost:3020/api/getUserList';
   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'withCredentials': 'true'
-    }),
+    'Content-Type': 'application/json',
+    'withCredentials': true
   };
 
   getListUsers() {

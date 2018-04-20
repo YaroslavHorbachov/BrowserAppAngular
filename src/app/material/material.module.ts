@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatExpansionModule,
+  MatCheckboxModule, MatDialogModule, MatExpansionModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule, MatPaginatorModule, MatTableModule,
@@ -14,9 +14,9 @@ import {CdkTableModule} from '@angular/cdk/table';
 @NgModule({
   imports: [
     CommonModule,
-    MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule, MatTableModule, MatPaginatorModule, CdkTableModule
+    MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule, MatTableModule, MatPaginatorModule, CdkTableModule, MatDialogModule
   ],
-  exports: [MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule, MatTableModule, MatPaginatorModule, CdkTableModule
+  exports: [MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatInputModule, MatMenuModule, MatIconModule, MatExpansionModule, MatTableModule, MatPaginatorModule, CdkTableModule, MatDialogModule
   ],
   declarations: []
 })

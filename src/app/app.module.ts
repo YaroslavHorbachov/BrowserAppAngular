@@ -16,7 +16,7 @@ import {MaterialModule} from './material/material.module';
 import {ProfileComponent} from './profile/profile.component';
 import {ProfileService} from './profile.service';
 import {FileUploadModule} from 'primeng/fileupload';
-import {ManagementComponent} from './management/management.component';
+import {DialogEditComponent, ManagementComponent} from './management/management.component';
 import {ManagementService} from './management.service';
 
 const appRoutes: Routes = [
@@ -49,7 +49,8 @@ const appRoutes: Routes = [
     NotFoundComponent,
     LoginComponent,
     ProfileComponent,
-    ManagementComponent
+    ManagementComponent,
+    DialogEditComponent
   ],
   imports: [
     FileUploadModule,
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
     ProfileService,
     ManagementService
   ],
+  entryComponents: [DialogEditComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -2,6 +2,19 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs/Subject';
 
+
+const httpOptions = {
+  'Content-Type': 'application/json',
+  'withCredentials': true
+};
+interface IRootLinks<T> {
+  TestSessions: T;
+  Register: T;
+  Login: T;
+  LogOut: T;
+  Log: T;
+}
+
 @Injectable()
 export class ConnectServerService {
 
@@ -9,27 +22,26 @@ export class ConnectServerService {
   constructor(private http: HttpClient) {
   }
 
-  apiRootRegister = 'http://localhost:3020/register';
-  apiRootLogin = 'http://localhost:3020/login';
-  apiRootLog = 'http://localhost:3020/log';
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'withCredentials': 'true'
-    }),
+  apiRoot: IRootLinks<string> = {
+    TestSessions: 'http://localhost:3020/user/register',
+    Register: 'http://localhost:3020/register',
+    Login: 'http://localhost:3020/login',
+    LogOut: 'http://localhost:3020/logout',
+    Log: 'http://localhost:3020/log',
   };
 
 
   getRegister(json) {
-    return this.http.post(this.apiRootRegister, json, this.httpOptions);
+    // return this.http.post(this.apiRootTestSessions, json, httpOptions);
+    return this.http.post(this.apiRoot.Register, json, httpOptions);
   }
 
   getLogin(json) {
-    return this.http.post(this.apiRootLogin, json, this.httpOptions);
+    return this.http.post(this.apiRoot.Login, json, httpOptions);
   }
 
   authToTrue(data) {
-    document.cookie = `isAuth=true&${JSON.stringify(data)}; expires=Thu, 01 Jan' + (new Date()).getFullYear() + 1 + ' 00:00:00 UTC;`;
+    document.cookie = `isAuth=true&${JSON.stringify(data)};expires=Thu, 01 Jan ${(new Date()).getFullYear() + 1} 00:00:00 UTC;`;
   }
 
   authToFalse() {
@@ -42,6 +54,7 @@ export class ConnectServerService {
         .split(';')
         .map(pair => pair.trim().split('='))
         .filter(pair => pair[0] === 'isAuth')[0][1].split('&');
+      console.log(stateSess);
       if (stateSess[0] === 'true') {
         const dataCatch = JSON.parse(stateSess[1]);
         const name = dataCatch.name;
@@ -69,8 +82,12 @@ export class ConnectServerService {
       .map(pair => pair.trim().split('=')).filter(pair => pair[0] === 'isAdmin')[0][1] === 'true';
   }
 
+  logOut() {
+   return  this.http.get(this.apiRoot.LogOut, httpOptions);
+  }
+
   getLog() {
-    return this.http.get(this.apiRootLog, this.httpOptions);
+    return this.http.get(this.apiRoot.Log, httpOptions);
   }
 
 }

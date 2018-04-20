@@ -19,12 +19,16 @@ export class AppComponent implements DoCheck {
       const resultArray = this.register.authCheck();
       this.isAuth = resultArray[0];
       this.namePerson = resultArray[1];
+
     } catch (e) {
       this.isAuth = [false];
     }
   }
 
   toAuth() {
+    this.register.logOut().subscribe((data: object) => {
+      console.log(data);
+    });
     this.register.authToFalse();
   }
 }

@@ -17,15 +17,22 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(dataForm) {
+    console.log(dataForm.value);
     const dataJson = {};
     const controls = dataForm._directives;
     controls.forEach(item => dataJson[item.name] = item.control.value);
-    this.register.getLogin(JSON.stringify(dataJson))
+    console.log(dataJson);
+    this.register.getLogin(dataForm.value)
       .subscribe(
         (data: any) => {
+          console.log('Here dta', data);
+
           const dataSend = {name: data.fname, id: data.id};
+
           this.register.authToTrue(dataSend);
-          setTimeout(empty => this.router.navigate(['/']), 5000);
+
+          setTimeout(empty => this.router.navigate(['/']), 2000);
+
         },
         (err) => {
           this.register.authToFalse();
