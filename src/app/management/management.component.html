@@ -14,19 +14,19 @@
     </ng-container>
 
     <ng-container matColumnDef="fname">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> First Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="fname"> First Name</mat-header-cell>
       <mat-cell *matCellDef="let element"><span> {{element.fname}}</span></mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="lname">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="lname"> Last Name</mat-header-cell>
       <mat-cell *matCellDef="let element"><span> {{element.lname}}</span></mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Email</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="email"> Email</mat-header-cell>
       <mat-cell *matCellDef="let element"> <span>{{element.email}}</span></mat-cell>
     </ng-container>
 

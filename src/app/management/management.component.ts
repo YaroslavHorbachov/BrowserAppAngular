@@ -1,18 +1,30 @@
-import {Component, Inject, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ManagementService} from '../management.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Subject} from 'rxjs/Subject';
+
+
+const rerenderTable: Subject<boolean> = new Subject<boolean>();
 
 @Component({
   selector: 'app-management',
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.css']
 })
-export class ManagementComponent {
+export class ManagementComponent implements OnInit {
   listUser: MatTableDataSource<Array<IListUserData<string>>> = null;
   listUserHead: any = null;
 
   constructor(private managementService: ManagementService, private dialog: MatDialog) {
     this.getListUserButton();
+  }
+
+  ngOnInit() {
+    rerenderTable.subscribe(event => {
+      if (event) {
+        this.getListUserButton();
+      }
+    });
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,11 +51,17 @@ export class ManagementComponent {
   }
 
   deleteUser(value) {
-    console.log(value);
+    this.managementService.removeUser(value).subscribe(data => {
+        console.log('Data successdully delivered ', data);
+        setTimeout(() => rerenderTable.next(true), 1000);
+      },
+      error => {
+        console.log('Error in delete User service', error);
+      }
+    );
   }
 
   editUser(value) {
-    console.log(value);
     const dialogRef = this.dialog.open(DialogEditComponent, {
       minWidth: 700,
       minHeight: 500,
@@ -70,17 +88,33 @@ export class ManagementComponent {
 })
 export class DialogEditComponent {
 
+
   constructor(
     public dialogRef: MatDialogRef<DialogEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private managementService: ManagementService) {
   }
 
   resultHandler(form) {
-    console.log(form.value);
+    const value = form.value;
+    console.log(value);
+    value.email = this.data.email;
+    value.status = 'admin';
+    this.managementService.editUser(value).subscribe(data => {
+      console.log('Data catch successfully ', data);
+    }, err => {
+      console.log('Catch error in editUser from Admin', err);
+    });
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+    setTimeout(() => rerenderTable.next(true), 1000);
+  }
+
+  closeModal() {
+    this.dialogRef.close();
+    setTimeout(() => rerenderTable.next(true), 1000);
   }
 
 }

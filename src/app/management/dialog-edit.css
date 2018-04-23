@@ -7,3 +7,8 @@
 .example-full-width {
   width: 100%;
 }
+.head-edit{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

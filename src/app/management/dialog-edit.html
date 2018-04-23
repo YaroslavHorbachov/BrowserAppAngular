@@ -1,13 +1,36 @@
-<h2 mat-dialog-title>Edit</h2>
+<div class="head-edit">
+  <h2  mat-dialog-title>Edit</h2>
+  <div>
+    <button mat-icon-button color="primary" (click)="closeModal($event)">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</div>
+
 <mat-dialog-content>
   <h4>Person Account</h4><br>
   <p><span><b><i>Email: </i></b></span>{{data.email}}</p><br>
   <form class="example-form" #f="ngForm">
     <mat-form-field class="example-full-width">
-      <input name="name" id="name" matInput type="text" [value]="data.name" placeholder="Name" ngModel>
+      <input
+        matInput
+        name="name"
+        id="name"
+        type="text"
+        placeholder="Name"
+        [(ngModel)]="data.name"
+        >
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <input type="text" name="surname" id="surname" [value]="data.lname" matInput placeholder="Surname" ngModel>
+      <input
+        matInput
+        type="text"
+        name="surname"
+        id="surname"
+        value="data.lname"
+        placeholder="Surname"
+        [(ngModel)]="data.lname"
+        >
     </mat-form-field>
   </form>
 </mat-dialog-content>

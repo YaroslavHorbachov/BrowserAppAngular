@@ -1,12 +1,7 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs/Subject';
 
-
-const httpOptions = {
-  'Content-Type': 'application/json',
-  'withCredentials': true
-};
 interface IRootLinks<T> {
   TestSessions: T;
   Register: T;
@@ -19,7 +14,7 @@ interface IRootLinks<T> {
 export class ConnectServerService {
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, @Inject('HttpOptions') private httpOptions) {
   }
 
   apiRoot: IRootLinks<string> = {
@@ -33,11 +28,11 @@ export class ConnectServerService {
 
   getRegister(json) {
     // return this.http.post(this.apiRootTestSessions, json, httpOptions);
-    return this.http.post(this.apiRoot.Register, json, httpOptions);
+    return this.http.post(this.apiRoot.Register, json, this.httpOptions.default);
   }
 
   getLogin(json) {
-    return this.http.post(this.apiRoot.Login, json, httpOptions);
+    return this.http.post(this.apiRoot.Login, json, this.httpOptions.default);
   }
 
   authToTrue(data) {
@@ -54,7 +49,7 @@ export class ConnectServerService {
         .split(';')
         .map(pair => pair.trim().split('='))
         .filter(pair => pair[0] === 'isAuth')[0][1].split('&');
-      console.log(stateSess);
+      // console.log(stateSess);
       if (stateSess[0] === 'true') {
         const dataCatch = JSON.parse(stateSess[1]);
         const name = dataCatch.name;
@@ -79,15 +74,17 @@ export class ConnectServerService {
   checkAdminCookie() {
     return document.cookie
       .split(';')
-      .map(pair => pair.trim().split('=')).filter(pair => pair[0] === 'isAdmin')[0][1] === 'true';
+      .map(pair => pair.trim()
+        .split('='))
+      .filter(pair => pair[0] === 'isAdmin')[0][1] === 'true';
   }
 
   logOut() {
-   return  this.http.get(this.apiRoot.LogOut, httpOptions);
+   return  this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
   }
 
   getLog() {
-    return this.http.get(this.apiRoot.Log, httpOptions);
+    return this.http.get(this.apiRoot.Log, this.httpOptions.default);
   }
 
 }

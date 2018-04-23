@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, ValueProvider} from '@angular/core';
 
 
 import {AppComponent} from './app.component';
@@ -18,6 +18,8 @@ import {ProfileService} from './profile.service';
 import {FileUploadModule} from 'primeng/fileupload';
 import {DialogEditComponent, ManagementComponent} from './management/management.component';
 import {ManagementService} from './management.service';
+import * as HTTP_OPTIONS from './config.options';
+
 
 const appRoutes: Routes = [
   {
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
     path: '**', pathMatch: 'full', component: NotFoundComponent
   }
 ];
+const HTTP: ValueProvider = {provide: 'HttpOptions', useValue: HTTP_OPTIONS};
 
 
 @NgModule({
@@ -65,7 +68,8 @@ const appRoutes: Routes = [
   providers: [
     ConnectServerService,
     ProfileService,
-    ManagementService
+    ManagementService,
+    HTTP
   ],
   entryComponents: [DialogEditComponent],
   bootstrap: [AppComponent]

@@ -1,0 +1,15 @@
+img {
+  height: 100px;
+  width: 100px;
+}
+div>img {
+  position: relative;
+  border-radius: 100%;
+}
+.boxName {
+  margin: 15px;
+}
+.boxName mat-card{
+  margin: 20px;
+}
+

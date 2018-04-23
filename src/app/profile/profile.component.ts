@@ -1,20 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ProfileService} from '../profile.service';
-import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
-  fileName: string;
-  fileSize: string;
-  isCanBeActive = false;
+export class ProfileComponent implements OnInit, DoCheck {
+  avatarURL: string;
+  namePerson: string;
+  surnamePerson: string;
   form: FormGroup;
   apiChangeRoute = 'http://localhost:3020/api/change';
+  isExpanded: boolean;
+  @ViewChild('avatarImage') avatarImage: ElementRef;
+  @ViewChild('buttonImage') buttonImage: ElementRef;
 
-  constructor(private _profile: ProfileService, private fb: FormBuilder) {
+  constructor(private _profile: ProfileService, private fb: FormBuilder, private _r: Renderer2) {
     this.createForm();
   }
 
@@ -24,40 +27,42 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  ngDoCheck() {
+
+  }
+
+  changeExpand(event) {
+    console.log(event);
+    this.isExpanded = false;
+  }
+
   ngOnInit() {
+    this._profile.getUser().subscribe((data: any) => {
+      console.log('This data ', data);
+      this.avatarURL = data.avatar;
+      this.namePerson = data.fname;
+      this.surnamePerson = data.lname;
+    }, err => {
+      console.log('This err ', err);
+    });
+  }
+
+  uploadFile(xhr) {
+    this._r.setAttribute(this.avatarImage.nativeElement,
+      'src',
+      xhr.files[0].objectURL.changingThisBreaksApplicationSecurity);
   }
 
   submitForm(form) {
-    console.log(form);
-  }
-
-  submitImageForm(formFile) {
-    const file: FileList = formFile.files;
-    const fileItem: File = Array.from(file)[0];
-    this.fileName = fileItem.name;
-    this.fileSize = (fileItem.size / 1000000).toFixed(3);
-    const reader = new FileReader();
-    reader.readAsDataURL(fileItem);
-    reader.onload = () => {
-      this.form.get('avatar').setValue({
-        filename: fileItem.name,
-        filetype: fileItem.type,
-        value: reader.result
+    this._profile.updateUser(form.value).subscribe((data: any) => {
+        console.log('Updated data ', data);
+        this.namePerson = data.fname;
+        this.surnamePerson = data.lname;
+        this.isExpanded = false;
+      },
+      err => {
+        console.log(err);
       });
-      this.isCanBeActive = true;
-      console.log('file onload');
-    };
-  }
-
-  sendFormFileData(f: NgForm) {
-    /*const avatar = File(f.value);
-    console.log(avatar);
-    const formData: FormData = new FormData();
-    formData.append('uploadFile', avatar, avatar.name);
-
-    this._profile.send(formData).subscribe(data => {
-      console.log(data);
-    });*/
   }
 
 }

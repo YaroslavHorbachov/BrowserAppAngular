@@ -1,20 +1,19 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ManagementService {
 
-  constructor(private _h: HttpClient) {
+  constructor(private _h: HttpClient, @Inject('HttpOptions') private httpOptions) {
   }
 
   apiRootUserList = 'http://localhost:3020/api/getUserList';
-  httpOptions = {
-    'Content-Type': 'application/json',
-    'withCredentials': true
-  };
+  apiRootUpdateUser = 'http://localhost:3020/api/user';
+  apiRootRemoveUser = 'http://localhost:3020/api/deleteUser';
+
 
   getListUsers() {
-    return this._h.get(this.apiRootUserList, this.httpOptions);
+    return this._h.get(this.apiRootUserList, this.httpOptions.default);
   }
 
   getUser() {
@@ -23,10 +22,12 @@ export class ManagementService {
   findUser(field) {
   }
 
-  editUser() {
+  editUser(value) {
+    return this._h.post(this.apiRootUpdateUser, value, this.httpOptions.default);
   }
 
-  removeUser() {
+  removeUser(value) {
+    return this._h.post(this.apiRootRemoveUser, value, this.httpOptions.default);
   }
 
 

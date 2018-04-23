@@ -30,7 +30,7 @@ export class HomeComponent implements DoCheck {
   }
 
   openView() {
-    this.register.getLog().subscribe((data: string) => {
+    this.register.getLog().subscribe((data: any) => {
       console.log('Success deliver!', data );
       this.dataJson = data.split('\n');
     }, err => {

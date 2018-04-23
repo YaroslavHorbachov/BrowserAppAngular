@@ -1,17 +1,21 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ProfileService {
-  apiRootFileUpdate = 'http://localhost:3020/api/change';
+  apiRootUser = 'http://localhost:3020/api/user';
 
-  constructor(private _h: HttpClient) {
+  constructor(private _h: HttpClient, @Inject('HttpOptions') public options) {
   }
 
-  send(file) {
-    return this._h
-      .post(this.apiRootFileUpdate, file);
+  getUser() {
+    return this._h.get(this.apiRootUser, this.options.default);
+  }
+
+  updateUser(value) {
+    return this._h.post(this.apiRootUser, value, this.options.default);
   }
 
 }
