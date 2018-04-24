@@ -29,36 +29,31 @@ export class RegisterComponent implements OnInit {
       this.register.authToFalse();
       this.stateData = 'INVALID';
     }
-
   }
 
   submitForm(dataForm): boolean {
-    const dataJson:  any = {};
-    const controls = dataForm._directives;
-    controls.forEach(item => dataJson[item.name] = item.control.value);
+    const value = dataForm.value;
     console.log('JSON ', dataForm.value);
-    if (dataForm.form.status === 'INVALID' || dataJson.password !== dataJson.password2) {
-
+    if (dataForm.form.status === 'INVALID' || value.password !== value.password2) {
       this.setStateData(false);
       return false;
     } else {
       this.register.getRegister(dataForm.value)
         .subscribe(
           (data: any) => {
-            console.log('Here create new user', data);
             if (data.state === 'done') {
-              this.setStateData(true, data.fname);
-              setTimeout(empty => this.router.navigate(['/']), 3000);
-            } else {
-              this.setStateData(false);
-            }
 
+              setTimeout(() =>
+                  this.router.navigate(['/login', {email: value.email}]),
+                3000);
+            } else {
+              console.error(data.state);
+            }
           },
           (err) => {
             console.log('Error on client', err);
-
             this.setStateData(false);
-            setTimeout(empty => this.router.navigate(['/']), 3000);
+            setTimeout(() => this.router.navigate(['/']), 3000);
           });
     }
 

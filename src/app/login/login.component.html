@@ -1,30 +1,48 @@
-<h1>
+<h2>
 Login page !
-</h1>
-<form (ngSubmit)="submitForm(formLogin)" #formLogin="ngForm">
-  <label>Email</label>
-  <input
-    id="email"
-    type="email"
-    placeholder="Your Email"
-    name="email"
-    size="26"
-    minlength="8"
-    maxlength="52"
-    required
-    ngModel>
+</h2>
+<form #formLogin="ngForm" >
+  <mat-form-field>
+    <input matInput
+           id="email"
+           type="email"
+           placeholder="Your Email"
+           name="email"
+           size="26"
+           minlength="8"
+           maxlength="52"
+           required
+           [(ngModel)]="paramsEmail">
+  </mat-form-field>
   <br>
-  <label>Password</label>
-  <input
-    id="password"
-    type="password"
-    placeholder="Your Password"
-    size="36"
-    minlength="8"
-    maxlength="64"
-    name="password"
-    required
-    ngModel>
+  <mat-form-field>
+    <input
+      matInput
+      id="password"
+      type="password"
+      placeholder="Your Password"
+      size="36"
+      minlength="8"
+      maxlength="64"
+      name="password"
+      required
+      ngModel>
+  </mat-form-field>
   <br>
-  <input type="submit">
+  <button mat-button (click)="submitForm(formLogin)">
+    <mat-icon>input</mat-icon>
+    Login
+  </button>
+  <div class="auth">
+
+
+
+  </div>
+</form>
+<form class="auth">
+  <button mat-raised-button color="warn" (click)="authGoogle()">Google </button>
+
+  <br>
+  <button mat-raised-button color="primary" (click)="authFacebook()"> Facebook </button>
+  <br>
 </form>

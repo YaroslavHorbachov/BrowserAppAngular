@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
 import {ConnectServerService} from '../connect-server.service';
 import {IResponseData} from '../iresponse-data';
 
@@ -8,12 +8,21 @@ import {IResponseData} from '../iresponse-data';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
 
-  constructor(private register: ConnectServerService, private router: Router) {
+
+export class LoginComponent implements OnInit {
+  paramsEmail: string = null;
+
+  constructor(
+    private register: ConnectServerService,
+    private router: Router,
+    private queryRouter: ActivatedRoute) {
   }
 
   ngOnInit() {
+    if (this.queryRouter.snapshot.params) {
+      this.paramsEmail = this.queryRouter.snapshot.params.email;
+    }
   }
 
   submitForm(dataForm) {
@@ -39,5 +48,17 @@ export class LoginComponent implements OnInit {
           console.log('Client have response error ', err);
         }
       );
+  }
+
+  authGoogle() {
+    console.log('Google');
+    const link = 'http://localhost:3020/login/google';
+    (<any>document).location = link;
+  }
+
+  authFacebook() {
+    console.log('Facebook');
+    const link = 'http://localhost:3020/login/facebook';
+    (<any>document).location = link;
   }
 }

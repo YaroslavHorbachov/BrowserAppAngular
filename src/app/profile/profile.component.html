@@ -44,10 +44,10 @@
                  [value]="surnamePerson"
                  ngModel>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="submitForm(formChangePersonData)"> Primary</button>
+        <button mat-raised-button color="primary" (click)="submitForm(formChangePersonData)"> Update </button>
       </form>
     </mat-expansion-panel>
-    <mat-expansion-panel class="formBox">
+    <mat-expansion-panel class="formBox" [expanded]="isExpanded">
       <mat-expansion-panel-header>
         <mat-panel-title>
           You can change avatar
@@ -55,8 +55,15 @@
         <mat-panel-description>
           You can upload file less then 2Mb
         </mat-panel-description>
-        <p-fileUpload (onUpload)="uploadFile($event)" withCredentials="true" mode="basic" chooseLabel="Browse" name="myfile" [url]="apiChangeRoute" auto="auto"></p-fileUpload>
-        <button (click)="renderImage($event)" mat-button> Submit </button>
+        <p-fileUpload
+          (onUpload)="uploadFile($event)"
+          withCredentials="true"
+          mode="basic"
+          chooseLabel="Browse"
+          name="myfile"
+          [url]="apiChangeRoute"
+          auto="auto"></p-fileUpload>
+        <button mat-button (click)="uploadFileSub()"> Update </button>
 
         <!--maxFileSize="2000000"-->
       </mat-expansion-panel-header>

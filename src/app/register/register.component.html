@@ -67,6 +67,6 @@
     <button mat-raised-button color="primary" type="submit" (click)="submitForm(formRegister)">Send</button>
 
   </form>
-  <h1 *ngIf='stateData !== false' [ngStyle]="{'color' : stateData === 'VALID'? 'green': 'red'}"> {{stateData}}</h1>
+  <h1 *ngIf='stateData !== false'> {{stateData}}</h1>
 
 </mat-card>

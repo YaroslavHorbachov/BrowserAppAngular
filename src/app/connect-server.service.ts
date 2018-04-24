@@ -8,6 +8,7 @@ interface IRootLinks<T> {
   Login: T;
   LogOut: T;
   Log: T;
+  LoginGoogle: T;
 }
 
 @Injectable()
@@ -23,11 +24,11 @@ export class ConnectServerService {
     Login: 'http://localhost:3020/login',
     LogOut: 'http://localhost:3020/logout',
     Log: 'http://localhost:3020/log',
+    LoginGoogle: 'http://localhost:3020/login/google'
   };
 
 
   getRegister(json) {
-    // return this.http.post(this.apiRootTestSessions, json, httpOptions);
     return this.http.post(this.apiRoot.Register, json, this.httpOptions.default);
   }
 
@@ -49,7 +50,6 @@ export class ConnectServerService {
         .split(';')
         .map(pair => pair.trim().split('='))
         .filter(pair => pair[0] === 'isAuth')[0][1].split('&');
-      // console.log(stateSess);
       if (stateSess[0] === 'true') {
         const dataCatch = JSON.parse(stateSess[1]);
         const name = dataCatch.name;
@@ -80,11 +80,14 @@ export class ConnectServerService {
   }
 
   logOut() {
-   return  this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
+    return this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
   }
 
   getLog() {
     return this.http.get(this.apiRoot.Log, this.httpOptions.default);
   }
 
+  authGoogle() {
+    return this.http.get(this.apiRoot.LoginGoogle, this.httpOptions.default);
+  }
 }

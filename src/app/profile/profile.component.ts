@@ -31,8 +31,7 @@ export class ProfileComponent implements OnInit, DoCheck {
 
   }
 
-  changeExpand(event) {
-    console.log(event);
+  uploadFileSub() {
     this.isExpanded = false;
   }
 

@@ -1,0 +1,11 @@
+h2 {
+  margin-top: 5rem;
+  margin-bottom: 10rem;
+}
+.auth{
+  margin: 5rem;
+}
+.auth button {
+  margin: 1rem;
+  width: 10rem;
+}
