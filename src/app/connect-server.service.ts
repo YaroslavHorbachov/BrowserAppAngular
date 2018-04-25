@@ -23,7 +23,7 @@ export class ConnectServerService {
     Register: 'http://localhost:3020/register',
     Login: 'http://localhost:3020/login',
     LogOut: 'http://localhost:3020/logout',
-    Log: 'http://localhost:3020/log',
+    Log: 'https://80a253de.ngrok.io/log',
     LoginGoogle: 'http://localhost:3020/login/google'
   };
 
