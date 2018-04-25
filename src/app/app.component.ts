@@ -1,4 +1,4 @@
-import {Component, DoCheck} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {ConnectServerService} from './connect-server.service';
 
 @Component({
@@ -6,12 +6,16 @@ import {ConnectServerService} from './connect-server.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements DoCheck, OnInit {
   namePerson: string | boolean | void;
   isAuth: any = [false];
 
 
   constructor(private register: ConnectServerService) {
+  }
+
+  ngOnInit() {
+    this.register.getAuthCheck().subscribe(data => console.log(data), err => console.log('getAuthCheck ', err));
   }
 
   ngDoCheck() {
@@ -26,7 +30,7 @@ export class AppComponent implements DoCheck {
   }
 
   toAuth() {
-    this.register.logOut().subscribe((data: object) => {
+    this.register.logOut().subscribe((data: any) => {
       console.log(data);
     });
     this.register.authToFalse();

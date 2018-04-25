@@ -32,6 +32,21 @@
         [(ngModel)]="data.lname"
         >
     </mat-form-field>
+    <div class="head-edit">
+      <mat-form-field>
+        <mat-select name='role' [(ngModel)]="roleSelect" placeholder="Choose role" >
+          <mat-option>None</mat-option>
+          <mat-option value="employee">Employee</mat-option>
+          <mat-option value="lead">Lead</mat-option>
+          <mat-option value="admin">Admin</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select name='leadSelect' placeholder="Leads" [(ngModel)]="selectLeads" multiple>
+          <mat-option *ngFor="let lead of leads" [value]="lead" >{{lead}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

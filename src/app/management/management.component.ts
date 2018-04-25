@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, Inject, OnInit, ViewChild} from '@angular/core';
 import {ManagementService} from '../management.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subject} from 'rxjs/Subject';
@@ -12,6 +12,10 @@ const rerenderTable: Subject<boolean> = new Subject<boolean>();
   styleUrls: ['./management.component.css']
 })
 export class ManagementComponent implements OnInit {
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   listUser: MatTableDataSource<Array<IListUserData<string>>> = null;
   listUserHead: any = null;
 
@@ -27,8 +31,6 @@ export class ManagementComponent implements OnInit {
     });
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -40,7 +42,7 @@ export class ManagementComponent implements OnInit {
     this.managementService.getListUsers().subscribe((data: any) => {
       console.log('Data success delivered ', data);
       this.listUser = new MatTableDataSource(data.data);
-      this.listUserHead = ['avatar', 'fname', 'lname', 'email', 'actions']; // COLUMNS IN TABLE
+      this.listUserHead = ['avatar', 'fname', 'lname', 'email', 'leads', 'role', 'actions']; // COLUMNS IN TABLE
       console.log(this.listUserHead);
       this.listUser.paginator = this.paginator;
       this.listUser.sort = this.sort;
@@ -66,9 +68,12 @@ export class ManagementComponent implements OnInit {
       minWidth: 700,
       minHeight: 500,
       data: {
+        block: this.listUser.data,
         name: value.fname || null,
         lname: value.lname || null,
-        email: value.email
+        email: value.email,
+        role: value.role,
+        leads: value.leads
       }
     });
 
@@ -86,8 +91,10 @@ export class ManagementComponent implements OnInit {
   templateUrl: './dialog-edit.html',
   styleUrls: ['./dialog-edit.css']
 })
-export class DialogEditComponent {
-
+export class DialogEditComponent implements OnInit {
+  roleSelect: any;
+  selectLeads: any;
+  leads: Array<string>;
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditComponent>,
@@ -95,11 +102,24 @@ export class DialogEditComponent {
     private managementService: ManagementService) {
   }
 
+  ngOnInit() {
+    const leadBlock = this.data.block
+      .filter(user => user.role === 'lead')
+      .map(leads => leads.fname);
+    this.leads = leadBlock;
+    this.selectLeads  = this.data.leads;
+    this.roleSelect = this.data.role;
+    console.log(this.leads, this.selectLeads);
+
+  }
+
   resultHandler(form) {
     const value = form.value;
-    console.log(value);
     value.email = this.data.email;
+    value.role = this.roleSelect;
+    value.leads = this.selectLeads;
     value.status = 'admin';
+    console.log(value);
     this.managementService.editUser(value).subscribe(data => {
       console.log('Data catch successfully ', data);
     }, err => {

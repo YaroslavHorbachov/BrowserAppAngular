@@ -20,6 +20,17 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*this.register.getFacebookUser().subscribe((data: any) => {
+      if (data) {
+        console.log('Facebook data ', data);
+        const dataSend = {name: data.fname, id: data._id};
+        this.register.authToTrue(dataSend);
+      } else {
+        this.register.authToFalse();
+      }
+    }, err => {
+      console.log('On init facebook data error, ', err);
+    });*/
     if (this.queryRouter.snapshot.params) {
       this.paramsEmail = this.queryRouter.snapshot.params.email;
     }

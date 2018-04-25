@@ -7,7 +7,6 @@
 
 <div class="container mat-elevation-z8" >
   <mat-table #table [dataSource]="listUser" matSort>
-
     <ng-container matColumnDef="avatar">
       <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
       <mat-cell *matCellDef="let element"><img [src]="element.avatar" alt="avatar"></mat-cell>
@@ -30,6 +29,21 @@
       <mat-cell *matCellDef="let element"> <span>{{element.email}}</span></mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="leads">
+      <mat-header-cell *matHeaderCellDef mat-sort-header="leads"> Leads</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ul>
+          <li *ngFor="let lead of element.leads">
+            {{lead}}
+          </li>
+        </ul>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+      <mat-cell *matCellDef="let element"><span>{{element.role}}</span></mat-cell>
+    </ng-container>
 
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Actions</mat-header-cell>

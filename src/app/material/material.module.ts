@@ -6,7 +6,7 @@ import {
   MatCheckboxModule, MatDialogModule, MatDividerModule, MatExpansionModule,
   MatIconModule,
   MatInputModule,
-  MatMenuModule, MatPaginatorModule, MatSortModule, MatTableModule,
+  MatMenuModule, MatPaginatorModule, MatSelectModule, MatSortModule, MatTableModule,
   MatTabsModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -27,7 +27,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     CdkTableModule,
     MatDialogModule,
     MatDividerModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule
   ],
   exports: [MatButtonModule,
     MatCheckboxModule,
@@ -41,7 +42,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatPaginatorModule,
     MatDialogModule,
     MatDividerModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule
   ],
   declarations: []
 })

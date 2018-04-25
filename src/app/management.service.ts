@@ -10,6 +10,7 @@ export class ManagementService {
   apiRootUserList = 'http://localhost:3020/api/getUserList';
   apiRootUpdateUser = 'http://localhost:3020/api/user';
   apiRootRemoveUser = 'http://localhost:3020/api/deleteUser';
+  apiRootGetLeadsList = 'http://localhost:3020/api/getLeads';
 
 
   getListUsers() {
@@ -20,6 +21,10 @@ export class ManagementService {
   }
 
   findUser(field) {
+  }
+
+  getLeads(){
+    return this._h.get(this.apiRootGetLeadsList, this.httpOptions.default);
   }
 
   editUser(value) {

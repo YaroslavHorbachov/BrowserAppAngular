@@ -3,12 +3,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs/Subject';
 
 interface IRootLinks<T> {
+  UserState: T;
   TestSessions: T;
   Register: T;
   Login: T;
   LogOut: T;
   Log: T;
   LoginGoogle: T;
+  TestNgRok: T;
+  TestNgRokLogout: T;
 }
 
 @Injectable()
@@ -19,15 +22,20 @@ export class ConnectServerService {
   }
 
   apiRoot: IRootLinks<string> = {
+    UserState: 'http://localhost:3020/user/state',
     TestSessions: 'http://localhost:3020/user/register',
     Register: 'http://localhost:3020/register',
     Login: 'http://localhost:3020/login',
     LogOut: 'http://localhost:3020/logout',
-    Log: 'https://80a253de.ngrok.io/log',
-    LoginGoogle: 'http://localhost:3020/login/google'
+    Log: 'http://localhost:3020/log',
+    LoginGoogle: 'http://localhost:3020/login/google',
+    TestNgRok: 'https://80a253de.ngrok.io/user/test',
+    TestNgRokLogout: 'https://80a253de.ngrok.io/user/logout'
   };
 
-
+  getAuthCheck(){
+    return this.http.get(this.apiRoot.UserState, this.httpOptions.default);
+  }
   getRegister(json) {
     return this.http.post(this.apiRoot.Register, json, this.httpOptions.default);
   }
@@ -83,11 +91,16 @@ export class ConnectServerService {
     return this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
   }
 
+  logOutFacebook() {
+    return this.http.get(this.apiRoot.TestNgRokLogout, this.httpOptions.default);
+  }
+
   getLog() {
     return this.http.get(this.apiRoot.Log, this.httpOptions.default);
   }
 
-  authGoogle() {
-    return this.http.get(this.apiRoot.LoginGoogle, this.httpOptions.default);
+  getFacebookUser() {
+    return this.http.get(this.apiRoot.TestNgRok, this.httpOptions.default);
   }
+
 }
