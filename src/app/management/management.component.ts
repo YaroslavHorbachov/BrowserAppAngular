@@ -17,7 +17,7 @@ export class ManagementComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   listUser: MatTableDataSource<Array<IListUserData<string>>> = null;
-  listUserHead: any = null;
+  listUserHead = ['avatar', 'fname', 'lname', 'email', 'leads', 'role', 'actions'];
 
   constructor(private managementService: ManagementService, private dialog: MatDialog) {
     this.getListUserButton();
@@ -40,10 +40,8 @@ export class ManagementComponent implements OnInit {
 
   getListUserButton() {
     this.managementService.getListUsers().subscribe((data: any) => {
-      console.log('Data success delivered ', data);
+      console.log('Rerender ', data)
       this.listUser = new MatTableDataSource(data.data);
-      this.listUserHead = ['avatar', 'fname', 'lname', 'email', 'leads', 'role', 'actions']; // COLUMNS IN TABLE
-      console.log(this.listUserHead);
       this.listUser.paginator = this.paginator;
       this.listUser.sort = this.sort;
       // console.log(this.listUserHead);
@@ -81,8 +79,6 @@ export class ManagementComponent implements OnInit {
       console.log('The dialog was closed', result);
       value.name = result;
     });
-
-
   }
 }
 
@@ -94,7 +90,7 @@ export class ManagementComponent implements OnInit {
 export class DialogEditComponent implements OnInit {
   roleSelect: any;
   selectLeads: any;
-  leads: Array<string>;
+  leads: any;
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditComponent>,
@@ -103,21 +99,38 @@ export class DialogEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const leadBlock = this.data.block
+    const Leads = this.data.block
       .filter(user => user.role === 'lead')
-      .map(leads => leads.fname);
-    this.leads = leadBlock;
-    this.selectLeads  = this.data.leads;
-    this.roleSelect = this.data.role;
-    console.log(this.leads, this.selectLeads);
+      .map(lead => {
+        return {
+          id: lead._id,
+          name: lead.fname,
+          surname: lead.lname,
+          email: lead.email
+        };
+      });
+    // const Employees =  this.data.block.filter(user => user.role === 'employee');
 
+    this.leads = Leads;
+    this.selectLeads = this.data.leads;
+    this.roleSelect = this.data.role;
+    console.log('All leads ', this.leads);
+
+
+    // const leadBlock = this.data.block
+    //   .filter(user => user.role === 'lead');
+    //
+    // this.leads = leadBlock;
+    // this.selectLeads = this.data.block;
+    // console.log(this.leads, this.selectLeads);
+    // console.log(this.data.block);
   }
 
   resultHandler(form) {
+    console.log(form.value);
     const value = form.value;
     value.email = this.data.email;
     value.role = this.roleSelect;
-    value.leads = this.selectLeads;
     value.status = 'admin';
     console.log(value);
     this.managementService.editUser(value).subscribe(data => {

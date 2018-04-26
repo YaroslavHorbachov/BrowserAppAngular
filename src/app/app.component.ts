@@ -15,7 +15,13 @@ export class AppComponent implements DoCheck, OnInit {
   }
 
   ngOnInit() {
-    this.register.getAuthCheck().subscribe(data => console.log(data), err => console.log('getAuthCheck ', err));
+    this.register.getAuthCheck()
+      .subscribe(data => {
+          if (data) {
+            console.log(data);
+          }
+        },
+        err => console.log('getAuthCheck ', err));
   }
 
   ngDoCheck() {

@@ -11,10 +11,17 @@ export class ManagementService {
   apiRootUpdateUser = 'http://localhost:3020/api/user';
   apiRootRemoveUser = 'http://localhost:3020/api/deleteUser';
   apiRootGetLeadsList = 'http://localhost:3020/api/getLeads';
+  apiRootGetEmployeesList = 'http://localhost:3020/api/getEmployees';
+  apiRootGetMessagesList = 'http://localhost:3020/api/getMessages';
+  apiRootPostMessage = 'http://localhost:3020/api/sendMessage';
 
 
   getListUsers() {
     return this._h.get(this.apiRootUserList, this.httpOptions.default);
+  }
+
+  getEmployeeList() {
+    return this._h.get(this.apiRootGetEmployeesList, this.httpOptions.default);
   }
 
   getUser() {
@@ -23,7 +30,7 @@ export class ManagementService {
   findUser(field) {
   }
 
-  getLeads(){
+  getLeads() {
     return this._h.get(this.apiRootGetLeadsList, this.httpOptions.default);
   }
 
@@ -35,5 +42,11 @@ export class ManagementService {
     return this._h.post(this.apiRootRemoveUser, value, this.httpOptions.default);
   }
 
+  getMessagesList() {
+    return this._h.get(this.apiRootGetMessagesList, this.httpOptions.default);
+  }
+  sendMessage(value){
+    return this._h.post(this.apiRootPostMessage, value,  this.httpOptions.default)
+  }
 
 }

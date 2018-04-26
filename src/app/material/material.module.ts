@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatDialogModule, MatDividerModule, MatExpansionModule,
+  MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule, MatPaginatorModule, MatSelectModule, MatSortModule, MatTableModule,
@@ -28,6 +28,7 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatDialogModule,
     MatDividerModule,
     MatSortModule,
+    MatDatepickerModule,
     MatSelectModule
   ],
   exports: [MatButtonModule,
@@ -43,7 +44,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatDialogModule,
     MatDividerModule,
     MatSortModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   declarations: []
 })

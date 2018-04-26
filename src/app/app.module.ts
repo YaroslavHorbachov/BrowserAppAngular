@@ -7,7 +7,7 @@ import {RegisterComponent} from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ConnectServerService} from './connect-server.service';
 import {HttpClientModule} from '@angular/common/http';
-import {Routes, RouterModule, ActivatedRouteSnapshot} from '@angular/router';
+import {Routes, RouterModule, ActivatedRouteSnapshot, UrlMatcher, UrlSegment} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {LoginComponent} from './login/login.component';
@@ -16,9 +16,13 @@ import {MaterialModule} from './material/material.module';
 import {ProfileComponent} from './profile/profile.component';
 import {ProfileService} from './profile.service';
 import {FileUploadModule} from 'primeng/fileupload';
+import {CalendarModule} from 'primeng/calendar';
 import {DialogEditComponent, ManagementComponent} from './management/management.component';
 import {ManagementService} from './management.service';
 import * as HTTP_OPTIONS from './config.options';
+import {UserReviewsComponent} from './user-reviews/user-reviews.component';
+import {ReviewsComponent} from './reviews/reviews.component';
+import {MatNativeDateModule} from '@angular/material';
 
 
 const appRoutes: Routes = [
@@ -41,11 +45,20 @@ const appRoutes: Routes = [
     path: 'user-management', pathMatch: 'full', component: ManagementComponent
   },
   {
+    path: 'reviews', pathMatch: 'full', component: ReviewsComponent
+  },
+  {
+    component: UserReviewsComponent, matcher: reviewsId
+  },
+  {
     path: '**', pathMatch: 'full', component: NotFoundComponent
   }
 ];
 const HTTP: ValueProvider = {provide: 'HttpOptions', useValue: HTTP_OPTIONS};
 
+export function reviewsId(url: UrlSegment[]) {
+  return url[0].path.match(/^(\w+)-reviews/) ? {consumed: url} : null;
+}
 
 @NgModule({
   declarations: [
@@ -56,10 +69,14 @@ const HTTP: ValueProvider = {provide: 'HttpOptions', useValue: HTTP_OPTIONS};
     LoginComponent,
     ProfileComponent,
     ManagementComponent,
-    DialogEditComponent
+    DialogEditComponent,
+    UserReviewsComponent,
+    ReviewsComponent
   ],
   imports: [
+    MatNativeDateModule,
     FileUploadModule,
+    CalendarModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     BrowserModule,

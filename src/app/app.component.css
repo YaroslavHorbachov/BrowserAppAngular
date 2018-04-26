@@ -9,4 +9,8 @@ a{
 .personBox:hover {
   cursor: pointer;
 }
-
+.flexhead{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

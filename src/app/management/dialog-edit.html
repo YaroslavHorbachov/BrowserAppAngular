@@ -42,8 +42,11 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-select name='leadSelect' placeholder="Leads" [(ngModel)]="selectLeads" multiple>
-          <mat-option *ngFor="let lead of leads" [value]="lead" >{{lead}}</mat-option>
+        <mat-select name='leads' placeholder="Leads" [(ngModel)]="selectLeads" multiple>
+          <mat-option *ngFor="let lead of leads" [value]="lead.email" >
+            <span>{{lead.name}} {{lead.surname}}</span>
+            <span>{{lead.email}}</span>
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
