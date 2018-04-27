@@ -1,0 +1,17 @@
+<div class="head-edit">
+  <h2  mat-dialog-title>View</h2>
+  <div>
+    <button mat-icon-button color="primary" (click)="onNoClick($event)">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-dialog-content class="message-width">
+  <h4>Comment at {{dataView.date | date}}</h4>
+  {{dataView.message}}
+  <br>
+</mat-dialog-content>
+<mat-dialog-actions class="action-left">
+  <button mat-button mat-dialog-close (click)="onNoClick"> Close </button>
+</mat-dialog-actions>

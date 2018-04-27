@@ -1,0 +1,12 @@
+.full-width{
+  width: 50%;
+}
+.full-width-message{
+  width: 100%;
+  /*height: 100%;*/
+}
+.buttonBox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

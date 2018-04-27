@@ -23,6 +23,8 @@ import * as HTTP_OPTIONS from './config.options';
 import {UserReviewsComponent} from './user-reviews/user-reviews.component';
 import {ReviewsComponent} from './reviews/reviews.component';
 import {MatNativeDateModule} from '@angular/material';
+import {DialogAddReviewComponent} from './dialog-add-review/dialog-add-review.component';
+import {DialogViewReviewComponent} from './dialog-view-review/dialog-view-review.component';
 
 
 const appRoutes: Routes = [
@@ -71,7 +73,9 @@ export function reviewsId(url: UrlSegment[]) {
     ManagementComponent,
     DialogEditComponent,
     UserReviewsComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    DialogAddReviewComponent,
+    DialogViewReviewComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -91,7 +95,11 @@ export function reviewsId(url: UrlSegment[]) {
     ManagementService,
     HTTP
   ],
-  entryComponents: [DialogEditComponent],
+  entryComponents: [
+    DialogViewReviewComponent,
+    DialogEditComponent,
+    DialogAddReviewComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

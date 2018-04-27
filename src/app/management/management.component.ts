@@ -30,8 +30,6 @@ export class ManagementComponent implements OnInit {
       }
     });
   }
-
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches

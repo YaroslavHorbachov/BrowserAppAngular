@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, DoCheck, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ManagementService} from '../management.service';
 import {Subject} from 'rxjs/Subject';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {DialogAddReviewComponent} from '../dialog-add-review/dialog-add-review.component';
+import {DialogViewReviewComponent} from '../dialog-view-review/dialog-view-review.component';
 
 
 @Component({
@@ -11,47 +14,69 @@ import {Subject} from 'rxjs/Subject';
 })
 
 export class UserReviewsComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  dataForDate: any;
   queryString: string;
   listMessages: any;
   rangeDates: any;
   minDate: Date = new Date(2000, 0, 1);
   maxDate: Date = new Date();
   minSelectDate: Date = null;
-  listUserHead = ['date', 'fullname', 'actions'];
-  renderTable: Subject<any> = new Subject<any>();
+  listUserHead = ['date', 'message', 'actions'];
+
 
   constructor(
     private query: ActivatedRoute,
-    private managment: ManagementService) {
+    private managment: ManagementService,
+    public dialogAddReview: MatDialog,
+    public dialogViewReview: MatDialog) {
+  }
+
+  createTable(data) {
+    this.dataForDate = data;
+    console.log('Here returned comments', data);
+    this.listMessages = new MatTableDataSource(data);
+    this.listMessages.paginator = this.paginator;
+    this.listMessages.sort = this.sort;
+    console.log(this.listMessages);
   }
 
   getMessageTable() {
-    this.managment.getMessagesList().subscribe((data: any) => {
-      console.log('Here returned comments', data);
-      this.listMessages = data.length ? data : null;
-    }, err => {
-      console.log(err);
-    });
+    this.managment
+      .getMessagesList()
+      .subscribe((data: any) => {
+        data.length ? this.createTable(data) : console.log('Not are data');
+      }, err => {
+        console.log('Error on catch Message Table ', err);
+      });
   }
 
   ngOnInit() {
-    this.renderTable.subscribe(data => {
+    this.managment.renderTableReviews.subscribe(data => {
       if (data) {
         this.getMessageTable();
       }
     });
     const params = this.query.snapshot.url[0].path;
     this.queryString = params.split('-')[0];
-    this.renderTable.next(true);
+    this.managment.renderTableReviews.next(true);
   }
 
-  saveComment(value) {
-    const message = {message: value, employee: this.queryString};
-    this.managment.sendMessage(message).subscribe((data: any) => {
-      console.log('Catch ', data);
-      this.renderTable.next(true);
-    }, err => {
-      console.log('Error in save Comment Action ', err);
+  saveComment() {
+    this.dialogAddReview.open(DialogAddReviewComponent, {
+      minWidth: 700,
+      minHeight: 500,
+      data: {employee: this.queryString}
+    });
+  }
+
+  viewAction(data) {
+    this.dialogViewReview.open(DialogViewReviewComponent, {
+      minWidth: 700,
+      minHeight: 500,
+      data: data
     });
   }
 
@@ -62,6 +87,19 @@ export class UserReviewsComponent implements OnInit {
 
   subFormReviews(value) {
     console.log(value);
+    const dataFilter = Object
+      .values(value)
+      .map((date: Date) => {
+        return date.toLocaleDateString().split('.').reverse().join('-');
+      });
+    const filteredDate = this.dataForDate.map(row => row.date).sort();
+    // const scanArray = filteredDate.slice(filteredDate.indexOf(dataFilter[0]), filteredDate.lastIndexOf(dataFilter[1]))
+    console.log(scanArray);
   }
 
+  /*.map(date => {
+      const dataA = date.split('-');
+      if (dataA[1][0] === '0') {dataA[1] = dataA[1][1]}
+      return dataA.join('-');
+    })*/
 }

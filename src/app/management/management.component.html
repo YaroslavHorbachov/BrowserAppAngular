@@ -8,7 +8,7 @@
 <div class="container mat-elevation-z8" >
   <mat-table #table [dataSource]="listUser" matSort>
     <ng-container matColumnDef="avatar">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-header-cell *matHeaderCellDef ></mat-header-cell>
       <mat-cell *matCellDef="let element"><img [src]="element.avatar" alt="avatar"></mat-cell>
     </ng-container>
 

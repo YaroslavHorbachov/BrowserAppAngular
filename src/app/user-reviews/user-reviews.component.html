@@ -1,15 +1,9 @@
-
 <div class="flexhead">
-  <form (ngSubmit)="saveComment(f.value.comment)" #f="ngForm" class="commentForm">
-    <mat-form-field class="full-width">
-      <textarea matInput placeholder="Leave a comment" name="comment" ngModel></textarea>
-    </mat-form-field>
-    <button  mat-raised-button color="accent">Send</button>
-  </form>
-  <form (ngSubmit)="subFormReviews(form.value)" #form='ngForm'>
-    <div >
+  <button mat-raised-button color="accent" (click)="saveComment()" class="add-comment">Add Comment</button>
+  <form #form='ngForm'>
+    <div>
       <h3>Data Filter </h3>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="full-width">
         <input matInput
                name="minSelectDate"
                [min]="minDate"
@@ -17,12 +11,14 @@
                [matDatepicker]="picker"
                placeholder="Choose a date"
                [(ngModel)]="minSelectDate"
+               required
         >
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="full-width">
         <input matInput
+               required
                name="maxSelectDate"
                [min]="minSelectDate"
                [max]="maxDate"
@@ -34,27 +30,26 @@
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
       <br>
-      <button mat-raised-button color="primary" > Filter </button>
+      <button mat-raised-button color="primary" (click)="subFormReviews(form.value)" > Filter</button>
     </div>
   </form>
 
 </div>
-<div  class="container mat-elevation-z8"  [ngStyle]="{'display': listMessages ? 'block' : 'hidden'}">
-  <mat-table  #table [dataSource]="listMessages" *ngIf="listMessages"  matSort>
+<div class="container mat-elevation-z8" [ngStyle]="{'display': listMessages ? 'block' : 'hidden'}">
+  <mat-table #table matSort [dataSource]="listMessages"  >
 
-    <div >
       <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header="date"> Date </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <span>{{element.date}}</span></mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"><span>{{element.date | date}}</span></mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="comment">
-        <mat-header-cell *matHeaderCellDef mat-sort-header="lead"> Full Name</mat-header-cell>
-        <mat-cell *matCellDef="let element"><span>{{element.comment}}</span></mat-cell>
+      <ng-container matColumnDef="message">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Message </mat-header-cell>
+        <mat-cell *matCellDef="let element"><span class="limit-message">{{element.message}}</span></mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef > Actions</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef > Actions </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <div>
             <button mat-raised-button color="primary" (click)='viewAction(element)'>
@@ -64,7 +59,6 @@
           </div>
         </mat-cell>
       </ng-container>
-    </div>
 
 
     <mat-header-row *matHeaderRowDef="listUserHead"></mat-header-row>
@@ -73,8 +67,8 @@
 
   </mat-table>
   <mat-paginator #paginator
-                 [pageSize]="15"
-                 [pageSizeOptions]="[15, 30, 45]"
+                 [pageSize]="8"
+                 [pageSizeOptions]="[16, 32, 64]"
                  [showFirstLastButtons]="true">
   </mat-paginator>
 </div>

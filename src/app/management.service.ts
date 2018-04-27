@@ -1,8 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class ManagementService {
+  renderTableReviews: Subject<any> = new Subject<any>();
 
   constructor(private _h: HttpClient, @Inject('HttpOptions') private httpOptions) {
   }

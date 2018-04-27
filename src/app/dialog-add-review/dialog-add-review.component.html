@@ -1,0 +1,32 @@
+<form  #f="ngForm" class="commentForm">
+  <mat-form-field class="full-width">
+    <input matInput
+           required
+           name="date"
+           [min]="minDate"
+           [max]="maxDate"
+           [matDatepicker]="picker"
+           placeholder="Choose a date"
+           [(ngModel)]="minSelectDate"
+           #date
+    >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="full-width-message" >
+    <textarea matInput
+              required
+              #text
+              (input)="rangeWord(text.value)"
+              ngModel
+              matTextareaAutosize
+              placeholder="Leave a comment"
+              name="message"
+              [disabled]="!date.checkValidity() || countWords > 300"
+              ></textarea>
+  </mat-form-field>
+ <div class = 'buttonBox'>
+   <button mat-raised-button (click)="sendMessage(f.value)" color="primary" [disabled]="f.invalid">Send</button>
+   <button mat-raised-button color="warn" (click)="onNoClick()">Close</button>
+ </div>
+</form>

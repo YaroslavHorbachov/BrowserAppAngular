@@ -1,0 +1,12 @@
+.action-left{
+  display: flex;
+  justify-content: flex-end;
+}
+.head-edit{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.message-width{
+  word-wrap: break-word;
+}
