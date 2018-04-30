@@ -1,5 +1,3 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
 
 <div style="text-align:center;">
     <nav mat-tab-nav-bar>
@@ -16,11 +14,11 @@
             <mat-icon>build</mat-icon>
             <span>Settings</span>
           </button>
-          <button mat-menu-item routerLink="user-management">
+          <button *ngIf="rolePerson ==='admin'" mat-menu-item routerLink="user-management">
             <mat-icon>assignment</mat-icon>
             <span>Management</span>
           </button>
-          <button mat-menu-item routerLink="reviews">
+          <button  *ngIf="rolePerson ==='lead'" mat-menu-item routerLink="reviews">
             <mat-icon>assignment_ind</mat-icon>
             <span>Review</span>
           </button>
@@ -35,5 +33,3 @@
   <router-outlet (auth)="toAuth($event)"></router-outlet>
 
 </div>
-
-<!--*ngIf='isAuth' -->

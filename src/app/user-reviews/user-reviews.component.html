@@ -60,10 +60,8 @@
         </mat-cell>
       </ng-container>
 
-
     <mat-header-row *matHeaderRowDef="listUserHead"></mat-header-row>
     <mat-row *matRowDef="let row; columns: listUserHead;"></mat-row>
-
 
   </mat-table>
   <mat-paginator #paginator
@@ -72,3 +70,4 @@
                  [showFirstLastButtons]="true">
   </mat-paginator>
 </div>
+

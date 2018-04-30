@@ -17,24 +17,22 @@ export class DialogAddReviewComponent {
               @Inject(MAT_DIALOG_DATA) private data: any,
               private managment: ManagementService) {
   }
-
   onNoClick(): void {
     this.dialogRef.close();
   }
-
   rangeWord(value) {
-    const arrlength = value.split(/(\s+)/).filter(i => i);
-    this.countWords = arrlength.length;
-    console.log('Change count words ', this.countWords);
+    this.countWords = value.replace(/(\s+)/g, '$').split('$').length;
   }
-
   sendMessage(message) {
     message.employee = this.data.employee;
-    message.date = message.date.toLocaleDateString().split('.').reverse().join('-');
+    message.date = message.date
+      .toLocaleDateString()
+      .split('.')
+      .reverse()
+      .join('-');
     this.managment
       .sendMessage(message)
-      .subscribe((data: any) => {
-        console.log('Catch ', data);
+      .subscribe(() => {
         this.managment.renderTableReviews.next(true);
         this.dialogRef.close();
       }, err => {

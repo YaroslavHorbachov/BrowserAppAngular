@@ -56,6 +56,7 @@
           You can upload file less then 2Mb
         </mat-panel-description>
         <p-fileUpload
+          maxFileSize="2000000"
           (onUpload)="uploadFile($event)"
           withCredentials="true"
           mode="basic"
@@ -64,12 +65,7 @@
           [url]="apiChangeRoute"
           auto="auto"></p-fileUpload>
         <button mat-button (click)="uploadFileSub()"> Update </button>
-
-        <!--maxFileSize="2000000"-->
       </mat-expansion-panel-header>
-
-
-
     </mat-expansion-panel>
   </mat-accordion>
 </mat-card>

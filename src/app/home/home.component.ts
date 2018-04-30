@@ -3,8 +3,7 @@ import {ConnectServerService} from '../connect-server.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements DoCheck {
   dataJson: any = false;

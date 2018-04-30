@@ -1,7 +1,5 @@
-<h2>
-Login page !
-</h2>
-<form #formLogin="ngForm" >
+<h2>Login page !</h2>
+<form #formLogin="ngForm">
   <mat-form-field>
     <input matInput
            id="email"
@@ -33,15 +31,19 @@ Login page !
     <mat-icon>input</mat-icon>
     Login
   </button>
-  <div class="auth">
-
-
-
-  </div>
 </form>
+<h2 *ngIf="errmsg"
+  style="
+  padding: 1rem;
+  margin: auto;
+  display: inline-block;
+  color: brown;
+   font-family: 'Roboto' , 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    font-weight: bold"
+>{{errmsg}}</h2>
 <form class="auth">
-  <button mat-raised-button color="warn" (click)="authGoogle()">Google </button>
+  <button mat-raised-button color="warn" (click)="authGoogle()">Google</button>
   <br>
-  <button mat-raised-button color="primary" (click)="authFacebook()"> Facebook </button>
+  <button mat-raised-button color="primary" (click)="authFacebook()"> Facebook</button>
   <br>
 </form>

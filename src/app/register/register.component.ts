@@ -1,8 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {ConnectServerService} from '../connect-server.service';
 import {Router} from '@angular/router';
-import {IResponseData} from '../iresponse-data';
 
 
 @Component({
@@ -10,7 +8,7 @@ import {IResponseData} from '../iresponse-data';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   @Output() auth: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private register: ConnectServerService, private router: Router) {
@@ -18,12 +16,8 @@ export class RegisterComponent implements OnInit {
 
   stateData: any = false;
 
-  ngOnInit() {
-  }
-
-  setStateData(value, name?) {
+  setStateData(value): void {
     if (value) {
-      this.register.authToTrue(name);
       this.stateData = 'VALID';
     } else {
       this.register.authToFalse();
@@ -42,28 +36,17 @@ export class RegisterComponent implements OnInit {
         .subscribe(
           (data: any) => {
             if (data.state === 'done') {
-
               setTimeout(() =>
-                  this.router.navigate(['/login', {email: value.email}]),
-                3000);
+                this.router.navigate(['/login', {email: value.email}]), 3000);
             } else {
               console.error(data.state);
             }
           },
-          (err) => {
+          (err: any) => {
             console.log('Error on client', err);
             this.setStateData(false);
             setTimeout(() => this.router.navigate(['/']), 3000);
           });
     }
-
   }
-}
-
-export class IdataJson {
-  fname: string;
-  lname: string;
-  email: string;
-  password: string;
-  password2: string;
 }

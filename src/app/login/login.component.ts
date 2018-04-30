@@ -8,10 +8,9 @@ import {IResponseData} from '../iresponse-data';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
-
 export class LoginComponent implements OnInit {
   paramsEmail: string = null;
+  errmsg: string = null;
 
   constructor(
     private register: ConnectServerService,
@@ -37,6 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(dataForm) {
+
     console.log(dataForm.value);
     const dataJson = {};
     const controls = dataForm._directives;
@@ -45,18 +45,17 @@ export class LoginComponent implements OnInit {
     this.register.getLogin(dataForm.value)
       .subscribe(
         (data: any) => {
-          console.log('Here dta', data);
-
-          const dataSend = {name: data.fname, id: data.id};
-
+          const dataSend = {name: data.fname, role: data.role};
           this.register.authToTrue(dataSend);
-
-          setTimeout(empty => this.router.navigate(['/']), 2000);
-
+          setTimeout(() => this.router.navigate(['/']), 2000);
         },
-        (err) => {
-          this.register.authToFalse();
-          console.log('Client have response error ', err);
+        (err: any) => {
+          if (err) {
+            this.errmsg = err.statusText;
+            setTimeout(() => this.errmsg = null, 2000)
+            this.register.authToFalse();
+            console.log('Client have response error ', err);
+          }
         }
       );
   }

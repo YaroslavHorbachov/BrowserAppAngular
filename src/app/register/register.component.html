@@ -2,7 +2,7 @@
   <mat-card-title>
     Register to Site!
   </mat-card-title>
-  <form  #formRegister="ngForm">
+  <form #formRegister="ngForm">
     <mat-form-field>
       <input matInput
              type="text"
@@ -39,15 +39,16 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput
-             type="password"
-             placeholder="Password"
-             size="36"
-             minlength="8"
-             maxlength="64"
-             name="password"
-             required
-             ngModel>
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        size="36"
+        minlength="8"
+        maxlength="64"
+        name="password"
+        required
+        ngModel>
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -63,9 +64,7 @@
         ngModel>
     </mat-form-field>
     <br>
-
     <button mat-raised-button color="primary" type="submit" (click)="submitForm(formRegister)">Send</button>
-
   </form>
   <h1 *ngIf='stateData !== false'> {{stateData}}</h1>
 

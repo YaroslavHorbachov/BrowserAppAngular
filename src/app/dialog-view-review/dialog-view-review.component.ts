@@ -9,14 +9,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class DialogViewReviewComponent implements OnInit {
   dataView: any;
   date: String;
-
   constructor(private dialogRef: MatDialogRef<DialogViewReviewComponent>,
               @Inject(MAT_DIALOG_DATA) private data: any) {
   }
   ngOnInit() {
     this.dataView = this.data;
   }
-
   onNoClick(): void {
     this.dialogRef.close();
   }

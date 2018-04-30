@@ -1,6 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Subject} from 'rxjs/Subject';
+import {HttpClient} from '@angular/common/http';
 
 interface IRootLinks<T> {
   UserState: T;
@@ -16,8 +15,6 @@ interface IRootLinks<T> {
 
 @Injectable()
 export class ConnectServerService {
-
-
   constructor(private http: HttpClient, @Inject('HttpOptions') private httpOptions) {
   }
 
@@ -33,9 +30,10 @@ export class ConnectServerService {
     TestNgRokLogout: 'https://80a253de.ngrok.io/user/logout'
   };
 
-  getAuthCheck(){
+  getAuthCheck() {
     return this.http.get(this.apiRoot.UserState, this.httpOptions.default);
   }
+
   getRegister(json) {
     return this.http.post(this.apiRoot.Register, json, this.httpOptions.default);
   }
@@ -44,7 +42,7 @@ export class ConnectServerService {
     return this.http.post(this.apiRoot.Login, json, this.httpOptions.default);
   }
 
-  authToTrue(data) {
+  authToTrue(data){
     document.cookie = `isAuth=true&${JSON.stringify(data)};expires=Thu, 01 Jan ${(new Date()).getFullYear() + 1} 00:00:00 UTC;`;
   }
 
@@ -52,7 +50,7 @@ export class ConnectServerService {
     document.cookie = 'isAuth=false; expires=Thu, 01 Jan 1970 00:00:00 UTC';
   }
 
-  authCheck() {
+  authCheck(){
     try {
       const stateSess = document.cookie
         .split(';')
@@ -61,10 +59,10 @@ export class ConnectServerService {
       if (stateSess[0] === 'true') {
         const dataCatch = JSON.parse(stateSess[1]);
         const name = dataCatch.name;
-        const id = dataCatch.id;
-        return [true, name];
+        const role = dataCatch.role;
+        return [true, name, role];
       } else {
-        throw new Error();
+        return new Error();
       }
     } catch (e) {
       return [false];
@@ -90,10 +88,12 @@ export class ConnectServerService {
   logOut() {
     return this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
   }
-
-  logOutFacebook() {
+/*
+  // ONLY FOR FACEBOOK
+  logOutFacebook(): void {
     return this.http.get(this.apiRoot.TestNgRokLogout, this.httpOptions.default);
   }
+*/
 
   getLog() {
     return this.http.get(this.apiRoot.Log, this.httpOptions.default);

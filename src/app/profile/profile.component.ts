@@ -8,13 +8,13 @@ import {ConnectServerService} from '../connect-server.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit, DoCheck {
+export class ProfileComponent implements OnInit{
   avatarURL: string;
   namePerson: string;
   surnamePerson: string;
   form: FormGroup;
-  apiChangeRoute = 'http://localhost:3020/api/change';
   isExpanded: boolean;
+  apiChangeRoute = 'http://localhost:3020/api/change';
 
   @ViewChild('avatarImage') avatarImage: ElementRef;
   @ViewChild('buttonImage') buttonImage: ElementRef;
@@ -30,10 +30,6 @@ export class ProfileComponent implements OnInit, DoCheck {
     this.form = this.fb.group({
       avatar: null
     });
-  }
-
-  ngDoCheck() {
-
   }
 
   registerUserCustomConfigs(data) {
@@ -63,7 +59,7 @@ export class ProfileComponent implements OnInit, DoCheck {
           }
         });
       }
-    }, err => {
+    }, (err: any) => {
       console.log('This err ', err);
     });
   }
@@ -81,7 +77,7 @@ export class ProfileComponent implements OnInit, DoCheck {
         this.surnamePerson = data.lname;
         this.isExpanded = false;
       },
-      err => {
+      (err: any) => {
         console.log(err);
       });
   }

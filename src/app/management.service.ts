@@ -25,13 +25,6 @@ export class ManagementService {
   getEmployeeList() {
     return this._h.get(this.apiRootGetEmployeesList, this.httpOptions.default);
   }
-
-  getUser() {
-  }
-
-  findUser(field) {
-  }
-
   getLeads() {
     return this._h.get(this.apiRootGetLeadsList, this.httpOptions.default);
   }
@@ -47,8 +40,9 @@ export class ManagementService {
   getMessagesList() {
     return this._h.get(this.apiRootGetMessagesList, this.httpOptions.default);
   }
-  sendMessage(value){
-    return this._h.post(this.apiRootPostMessage, value,  this.httpOptions.default)
+
+  sendMessage(value) {
+    return this._h.post(this.apiRootPostMessage, value, this.httpOptions.default);
   }
 
 }

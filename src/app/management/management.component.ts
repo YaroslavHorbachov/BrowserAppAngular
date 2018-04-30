@@ -1,4 +1,4 @@
-import {Component, DoCheck, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ManagementService} from '../management.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subject} from 'rxjs/Subject';
@@ -31,18 +31,17 @@ export class ManagementComponent implements OnInit {
     });
   }
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
     this.listUser.filter = filterValue;
   }
 
   getListUserButton() {
     this.managementService.getListUsers().subscribe((data: any) => {
-      console.log('Rerender ', data)
+      console.log('Rerender ', data);
       this.listUser = new MatTableDataSource(data.data);
       this.listUser.paginator = this.paginator;
       this.listUser.sort = this.sort;
-      // console.log(this.listUserHead);
     }, err => {
       console.log('Error in User list', err);
     });
@@ -97,7 +96,7 @@ export class DialogEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const Leads = this.data.block
+    this.leads = this.data.block
       .filter(user => user.role === 'lead')
       .map(lead => {
         return {
@@ -107,21 +106,8 @@ export class DialogEditComponent implements OnInit {
           email: lead.email
         };
       });
-    // const Employees =  this.data.block.filter(user => user.role === 'employee');
-
-    this.leads = Leads;
     this.selectLeads = this.data.leads;
     this.roleSelect = this.data.role;
-    console.log('All leads ', this.leads);
-
-
-    // const leadBlock = this.data.block
-    //   .filter(user => user.role === 'lead');
-    //
-    // this.leads = leadBlock;
-    // this.selectLeads = this.data.block;
-    // console.log(this.leads, this.selectLeads);
-    // console.log(this.data.block);
   }
 
   resultHandler(form) {
@@ -147,13 +133,9 @@ export class DialogEditComponent implements OnInit {
     this.dialogRef.close();
     setTimeout(() => rerenderTable.next(true), 1000);
   }
-
 }
-
 export class IListUserData<T> {
-  _id: T;
   email: T;
-  password: T;
   fname: T;
   lname: T;
 }

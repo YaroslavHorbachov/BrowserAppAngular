@@ -15,30 +15,30 @@ export class ReviewsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private managment: ManagementService, private router: Router) {
+  constructor(private management: ManagementService, private router: Router) {
   }
 
   ngOnInit() {
-    this.managment.getEmployeeList().subscribe((data: any) => {
+    this.management.getEmployeeList().subscribe((data: any) => {
       if (data) {
         console.log('Here employees list', data);
         this.listEmployees = new MatTableDataSource(data);
         this.listEmployees.sort = this.sort;
         this.listEmployees.paginator = this.paginator;
       }
-    }, err => {
+    }, (err: any) => {
       console.log('Error on review page', err);
     });
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
     this.listEmployees.filter = filterValue;
   }
 
   reviewAction(user) {
-    setTimeout(() => this.router.navigate([`${user._id}-reviews`]), 500);
+    this.router.navigate([`${user._id}-reviews`]).then();
   }
 
 }

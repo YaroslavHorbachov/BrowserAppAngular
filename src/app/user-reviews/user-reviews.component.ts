@@ -1,7 +1,6 @@
-import {AfterViewChecked, Component, DoCheck, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ManagementService} from '../management.service';
-import {Subject} from 'rxjs/Subject';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogAddReviewComponent} from '../dialog-add-review/dialog-add-review.component';
 import {DialogViewReviewComponent} from '../dialog-view-review/dialog-view-review.component';
@@ -20,10 +19,10 @@ export class UserReviewsComponent implements OnInit {
   dataForDate: any;
   queryString: string;
   listMessages: any;
-  rangeDates: any;
   minDate: Date = new Date(2000, 0, 1);
   maxDate: Date = new Date();
   minSelectDate: Date = null;
+  maxSelectDate: Date = null;
   listUserHead = ['date', 'message', 'actions'];
 
 
@@ -35,7 +34,6 @@ export class UserReviewsComponent implements OnInit {
   }
 
   createTable(data) {
-    this.dataForDate = data;
     console.log('Here returned comments', data);
     this.listMessages = new MatTableDataSource(data);
     this.listMessages.paginator = this.paginator;
@@ -48,6 +46,7 @@ export class UserReviewsComponent implements OnInit {
       .getMessagesList()
       .subscribe((data: any) => {
         data.length ? this.createTable(data) : console.log('Not are data');
+        this.dataForDate = [...data];
       }, err => {
         console.log('Error on catch Message Table ', err);
       });
@@ -79,27 +78,13 @@ export class UserReviewsComponent implements OnInit {
       data: data
     });
   }
-
-  datePicker() {
-    const dataFormat = this.rangeDates.map((date: Date) => date.toLocaleDateString());
-    console.log(dataFormat);
-  }
-
-  subFormReviews(value) {
-    console.log(value);
-    const dataFilter = Object
-      .values(value)
-      .map((date: Date) => {
-        return date.toLocaleDateString().split('.').reverse().join('-');
+  subFormReviews() {
+    const l = this.minSelectDate,
+      h = this.maxSelectDate,
+      filteredSet = this.dataForDate.filter(comment => {
+        return new Date(comment.date).getTime() >= l.getTime() &&
+          new Date(comment.date).getTime() <= h.getTime();
       });
-    const filteredDate = this.dataForDate.map(row => row.date).sort();
-    // const scanArray = filteredDate.slice(filteredDate.indexOf(dataFilter[0]), filteredDate.lastIndexOf(dataFilter[1]))
-    console.log(scanArray);
+    this.createTable(filteredSet);
   }
-
-  /*.map(date => {
-      const dataA = date.split('-');
-      if (dataA[1][0] === '0') {dataA[1] = dataA[1][1]}
-      return dataA.join('-');
-    })*/
 }
