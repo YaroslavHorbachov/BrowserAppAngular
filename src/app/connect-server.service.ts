@@ -11,6 +11,7 @@ interface IRootLinks<T> {
   LoginGoogle: T;
   TestNgRok: T;
   TestNgRokLogout: T;
+  UserEmailState: T;
 }
 
 @Injectable()
@@ -20,6 +21,7 @@ export class ConnectServerService {
 
   apiRoot: IRootLinks<string> = {
     UserState: 'http://localhost:3020/user/state',
+    UserEmailState: 'http://localhost:3020/user/state/email',
     TestSessions: 'http://localhost:3020/user/register',
     Register: 'http://localhost:3020/register',
     Login: 'http://localhost:3020/login',
@@ -34,6 +36,10 @@ export class ConnectServerService {
     return this.http.get(this.apiRoot.UserState, this.httpOptions.default);
   }
 
+  getUserEmailCheck(json) {
+    return this.http.post(this.apiRoot.UserEmailState, json, this.httpOptions.default);
+  }
+
   getRegister(json) {
     return this.http.post(this.apiRoot.Register, json, this.httpOptions.default);
   }
@@ -42,7 +48,7 @@ export class ConnectServerService {
     return this.http.post(this.apiRoot.Login, json, this.httpOptions.default);
   }
 
-  authToTrue(data){
+  authToTrue(data) {
     document.cookie = `isAuth=true&${JSON.stringify(data)};expires=Thu, 01 Jan ${(new Date()).getFullYear() + 1} 00:00:00 UTC;`;
   }
 
@@ -50,7 +56,7 @@ export class ConnectServerService {
     document.cookie = 'isAuth=false; expires=Thu, 01 Jan 1970 00:00:00 UTC';
   }
 
-  authCheck(){
+  authCheck() {
     try {
       const stateSess = document.cookie
         .split(';')
@@ -88,12 +94,13 @@ export class ConnectServerService {
   logOut() {
     return this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
   }
-/*
-  // ONLY FOR FACEBOOK
-  logOutFacebook(): void {
-    return this.http.get(this.apiRoot.TestNgRokLogout, this.httpOptions.default);
-  }
-*/
+
+  /*
+    // ONLY FOR FACEBOOK
+    logOutFacebook(): void {
+      return this.http.get(this.apiRoot.TestNgRokLogout, this.httpOptions.default);
+    }
+  */
 
   getLog() {
     return this.http.get(this.apiRoot.Log, this.httpOptions.default);

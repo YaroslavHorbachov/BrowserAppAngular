@@ -25,6 +25,7 @@ import {ReviewsComponent} from './reviews/reviews.component';
 import {MatNativeDateModule} from '@angular/material';
 import {DialogAddReviewComponent} from './dialog-add-review/dialog-add-review.component';
 import {DialogViewReviewComponent} from './dialog-view-review/dialog-view-review.component';
+import { DialogResetpasswordComponent } from './dialog-resetpassword/dialog-resetpassword.component';
 
 
 const appRoutes: Routes = [
@@ -35,10 +36,10 @@ const appRoutes: Routes = [
     path: 'register', pathMatch: 'full', component: RegisterComponent
   },
   {
-    path: 'login', component: LoginComponent
+    path: 'login', pathMatch: 'full', component: LoginComponent
   },
   {
-    path: 'login/:email', component: LoginComponent
+    path: 'login/:email', pathMatch: 'full',  component: LoginComponent
   },
   {
     path: 'profile', pathMatch: 'full', component: ProfileComponent
@@ -76,7 +77,8 @@ export function reviewsId(url: UrlSegment[]) {
     UserReviewsComponent,
     ReviewsComponent,
     DialogAddReviewComponent,
-    DialogViewReviewComponent
+    DialogViewReviewComponent,
+    DialogResetpasswordComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -97,6 +99,7 @@ export function reviewsId(url: UrlSegment[]) {
     HTTP
   ],
   entryComponents: [
+    DialogResetpasswordComponent,
     DialogViewReviewComponent,
     DialogEditComponent,
     DialogAddReviewComponent

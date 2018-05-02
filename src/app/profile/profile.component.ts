@@ -2,14 +2,17 @@ import {Component, DoCheck, ElementRef, OnInit, Renderer2, ViewChild} from '@ang
 import {ProfileService} from '../profile.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ConnectServerService} from '../connect-server.service';
+import {MatDialog} from '@angular/material';
+import {DialogResetpasswordComponent} from '../dialog-resetpassword/dialog-resetpassword.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
   avatarURL: string;
+  dialogData: any = null;
   namePerson: string;
   surnamePerson: string;
   form: FormGroup;
@@ -22,7 +25,8 @@ export class ProfileComponent implements OnInit{
   constructor(private _profile: ProfileService,
               private register: ConnectServerService,
               private fb: FormBuilder,
-              private _r: Renderer2) {
+              private _r: Renderer2,
+              private dialogResetPassword: MatDialog) {
     this.createForm();
   }
 
@@ -46,6 +50,7 @@ export class ProfileComponent implements OnInit{
     this._profile.getUser().subscribe((data: any) => {
       if (data) {
         console.log('This data ', data);
+        this.dialogData = data;
         this.registerUserCustomConfigs(data);
       } else {
         this.register.getFacebookUser().subscribe((doc: any) => {
@@ -61,6 +66,14 @@ export class ProfileComponent implements OnInit{
       }
     }, (err: any) => {
       console.log('This err ', err);
+    });
+  }
+
+  openDialogChangePassword() {
+    this.dialogResetPassword.open(DialogResetpasswordComponent, {
+      minWidth: 700,
+      minHeight: 500,
+      data: this.dialogData
     });
   }
 

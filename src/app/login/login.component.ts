@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
 import {ConnectServerService} from '../connect-server.service';
 import {IResponseData} from '../iresponse-data';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -11,27 +12,40 @@ import {IResponseData} from '../iresponse-data';
 export class LoginComponent implements OnInit {
   paramsEmail: string = null;
   errmsg: string = null;
+  cred: any = {};
 
   constructor(
     private register: ConnectServerService,
     private router: Router,
-    private queryRouter: ActivatedRoute) {
+    private queryRouter: ActivatedRoute,
+    public snackBar: MatSnackBar) {
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      verticalPosition: 'bottom',
+      announcementMessage: message
+    });
   }
 
   ngOnInit() {
-    /*this.register.getFacebookUser().subscribe((data: any) => {
-      if (data) {
-        console.log('Facebook data ', data);
-        const dataSend = {name: data.fname, id: data._id};
-        this.register.authToTrue(dataSend);
-      } else {
-        this.register.authToFalse();
-      }
-    }, err => {
-      console.log('On init facebook data error, ', err);
-    });*/
     if (this.queryRouter.snapshot.params) {
-      this.paramsEmail = this.queryRouter.snapshot.params.email;
+      this.paramsEmail = this.queryRouter.snapshot.params.email.replace(',', '.');
+      console.log(this.queryRouter.snapshot.params);
+      if (this.paramsEmail) {
+        this.register
+          .getUserEmailCheck({email: this.paramsEmail.replace(',', '.')})
+          .subscribe((data: any) => {
+            console.log(data);
+            if (data.status === 'done') {
+              this.cred.name = data.name;
+              this.cred.surname = data.surname;
+              this.openSnackBar(
+                `Great ! ${data.data.fname} ${data.data.lname}. You are welcome! `,
+                'OK');
+            }
+          });
+      }
     }
   }
 
@@ -52,7 +66,7 @@ export class LoginComponent implements OnInit {
         (err: any) => {
           if (err) {
             this.errmsg = err.statusText;
-            setTimeout(() => this.errmsg = null, 2000)
+            setTimeout(() => this.errmsg = null, 2000);
             this.register.authToFalse();
             console.log('Client have response error ', err);
           }

@@ -37,7 +37,7 @@ export class RegisterComponent {
           (data: any) => {
             if (data.state === 'done') {
               setTimeout(() =>
-                this.router.navigate(['/login', {email: value.email}]), 3000);
+                this.router.navigate(['login', {email: value.email}]), 3000);
             } else {
               console.error(data.state);
             }
