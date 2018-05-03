@@ -27,20 +27,20 @@
       ngModel>
   </mat-form-field>
   <br>
-  <button mat-button (click)="submitForm(formLogin)">
+  <button [disabled]="!formLogin.valid" mat-button (click)="submitForm(formLogin)">
     <mat-icon>input</mat-icon>
     Login
   </button>
 </form>
-<h2 *ngIf="errmsg"
-  style="
-  padding: 1rem;
-  margin: auto;
-  display: inline-block;
-  color: brown;
-   font-family: 'Roboto' , 'Trebuchet MS', Arial, Helvetica, sans-serif;
-    font-weight: bold"
->{{errmsg}}</h2>
+<button
+  *ngIf="errmsg"
+  class="reset-pass"
+  mat-button
+  (click)="resetPassword()"
+  style="color: gray"
+>Forgot Password ?
+</button>
+
 <form class="auth">
   <button mat-raised-button color="warn" (click)="authGoogle()">Google</button>
   <br>

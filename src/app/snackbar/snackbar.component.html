@@ -1,0 +1,51 @@
+<mat-card *ngIf="!emailSend">
+  <mat-card-header>
+    <mat-card-title>Reset your password</mat-card-title>
+    <mat-card-subtitle>After reset, you should pass email</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form>
+      <div [ngStyle]="{'display' : emailSend ? 'none' : 'flex'}" class="snack-column">
+        <mat-form-field>
+          <input
+            placeholder="Your original email"
+            matInput
+            disabled
+            type="email"
+            name="original"
+            [(ngModel)]="emailToReset"
+            #original
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            placeholder="Your email"
+            required
+            matInput
+            type="email"
+            name="check"
+            [(ngModel)]="checkEmail"
+          >
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <h2 *ngIf="toggle">TOGGLE</h2>
+  <mat-card-actions>
+    <button mat-button [disabled]="checkEmail !== original.value" (click)="resetPassword()">RESET</button>
+    <button mat-button (click)="close()">CLOSE</button>
+    <button mat-button (click)="Toggle()">TOGGLE</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="emailSend">
+  <mat-card>
+    <mat-card-title> Good day {{namePerson}} {{surnamePerson}}</mat-card-title>
+    <mat-card-title>You have are new message with new password</mat-card-title>
+    <div class="row-button">
+      <div><a mat-raised-button href="mailto:">Open</a></div>
+      <div><a mat-raised-button (click)="close()">Close</a></div>
+    </div>
+  </mat-card>
+
+</div>

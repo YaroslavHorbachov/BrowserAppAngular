@@ -11,8 +11,8 @@
         <mat-icon>account_circle</mat-icon>
         <mat-menu #menu="matMenu" >
           <button mat-menu-item routerLink="profile">
-            <mat-icon>build</mat-icon>
-            <span>Settings</span>
+            <mat-icon>home</mat-icon>
+            <span>Profile</span>
           </button>
           <button *ngIf="rolePerson ==='admin'" mat-menu-item routerLink="user-management">
             <mat-icon>assignment</mat-icon>
@@ -21,6 +21,10 @@
           <button  *ngIf="rolePerson ==='lead'" mat-menu-item routerLink="reviews">
             <mat-icon>assignment_ind</mat-icon>
             <span>Review</span>
+          </button>
+          <button  *ngIf="rolePerson ==='admin'" mat-menu-item routerLink="settings">
+            <mat-icon>build</mat-icon>
+            <span>Settings</span>
           </button>
           <button mat-menu-item routerLink="login" (click)="toAuth()">
             <mat-icon>exit_to_app</mat-icon>

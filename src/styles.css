@@ -3,3 +3,7 @@
 body {
   background-image: url("./assets/background.jpg") ;
 }
+.violet-body-snackbar{
+  background-color: blueviolet;
+  color: black;
+}

@@ -26,6 +26,8 @@ import {MatNativeDateModule} from '@angular/material';
 import {DialogAddReviewComponent} from './dialog-add-review/dialog-add-review.component';
 import {DialogViewReviewComponent} from './dialog-view-review/dialog-view-review.component';
 import { DialogResetpasswordComponent } from './dialog-resetpassword/dialog-resetpassword.component';
+import { SnackbarComponent } from './snackbar/snackbar.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 const appRoutes: Routes = [
@@ -49,6 +51,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'reviews', pathMatch: 'full', component: ReviewsComponent
+  },
+  {
+    path: 'settings', pathMatch: 'full', component: SettingsComponent
   },
   {
     component: UserReviewsComponent, matcher: reviewsId
@@ -78,7 +83,9 @@ export function reviewsId(url: UrlSegment[]) {
     ReviewsComponent,
     DialogAddReviewComponent,
     DialogViewReviewComponent,
-    DialogResetpasswordComponent
+    DialogResetpasswordComponent,
+    SnackbarComponent,
+    SettingsComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -99,6 +106,7 @@ export function reviewsId(url: UrlSegment[]) {
     HTTP
   ],
   entryComponents: [
+    SnackbarComponent,
     DialogResetpasswordComponent,
     DialogViewReviewComponent,
     DialogEditComponent,

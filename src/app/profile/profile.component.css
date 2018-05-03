@@ -12,4 +12,8 @@ div>img {
 .boxName mat-card{
   margin: 20px;
 }
-
+.time-header {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-end;
+}

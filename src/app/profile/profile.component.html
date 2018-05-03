@@ -1,4 +1,8 @@
 <mat-card>
+  <mat-card-header class='time-header'>
+    <mat-card-title>Last Visit: <span>{{lastVisit |  date:'yyyy-MM-dd HH:mm'}}</span></mat-card-title>
+    <mat-card-title>Last Modify: <span>{{lastModify |  date:'yyyy-MM-dd HH:mm'}}</span></mat-card-title>
+  </mat-card-header>
   <div class="boxName">
     <div>
       <img #avatarImage [src]="avatarURL" alt="Your Avatar">
@@ -6,12 +10,11 @@
     <mat-card>
       <h2> {{namePerson}} {{surnamePerson}}</h2>
     </mat-card>
-
   </div>
   <mat-card-title> Settings</mat-card-title>
   <mat-card-subtitle>You can change your avatar and person data</mat-card-subtitle>
   <mat-accordion>
-    <mat-expansion-panel [expanded]="isExpanded"  >
+    <mat-expansion-panel [expanded]="isExpanded">
       <mat-expansion-panel-header>
         <mat-panel-title>
           New personal data
@@ -44,7 +47,7 @@
                  [value]="surnamePerson"
                  ngModel>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="submitForm(formChangePersonData)"> Update </button>
+        <button mat-raised-button color="primary" (click)="submitForm(formChangePersonData)"> Update</button>
       </form>
     </mat-expansion-panel>
     <mat-expansion-panel class="formBox" [expanded]="isExpanded">
@@ -64,7 +67,7 @@
           name="myfile"
           [url]="apiChangeRoute"
           auto="auto"></p-fileUpload>
-        <button mat-button (click)="uploadFileSub()"> Update </button>
+        <button mat-button (click)="uploadFileSub()"> Update</button>
       </mat-expansion-panel-header>
     </mat-expansion-panel>
     <mat-expansion-panel (click)="openDialogChangePassword()">

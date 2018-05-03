@@ -1,9 +1,5 @@
-.column-pass{
+.email-settings-tree {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-mat-form-field {
-  margin: 1rem;
-}
-

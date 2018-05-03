@@ -12,6 +12,8 @@ import {DialogResetpasswordComponent} from '../dialog-resetpassword/dialog-reset
 })
 export class ProfileComponent implements OnInit {
   avatarURL: string;
+  lastModify: string = null;
+  lastVisit: string = null;
   dialogData: any = null;
   namePerson: string;
   surnamePerson: string;
@@ -40,6 +42,8 @@ export class ProfileComponent implements OnInit {
     this.avatarURL = data.avatar;
     this.namePerson = data.fname;
     this.surnamePerson = data.lname;
+    this.lastModify = data.lastModified;
+    this.lastVisit = data.lastVisit;
   }
 
   uploadFileSub() {
@@ -47,7 +51,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._profile.getUser().subscribe((data: any) => {
+    Promise.resolve().then(() => this._profile.updateUser({}).subscribe((data: any) => {
+      console.log('Date is after init', data);
+    })).then(() => this._profile.getUser().subscribe((data: any) => {
       if (data) {
         console.log('This data ', data);
         this.dialogData = data;
@@ -66,7 +72,7 @@ export class ProfileComponent implements OnInit {
       }
     }, (err: any) => {
       console.log('This err ', err);
-    });
+    }));
   }
 
   openDialogChangePassword() {
@@ -84,7 +90,8 @@ export class ProfileComponent implements OnInit {
   }
 
   submitForm(form) {
-    this._profile.updateUser(form.value).subscribe((data: any) => {
+    const json = {...form.value, status: 'modify'};
+    this._profile.updateUser(json).subscribe((data: any) => {
         console.log('Updated data ', data);
         this.namePerson = data.fname;
         this.surnamePerson = data.lname;
