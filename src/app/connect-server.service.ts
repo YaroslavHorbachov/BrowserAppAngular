@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 interface IRootLinks<T> {
+  EmaiilSettings: T;
   UserState: T;
   TestSessions: T;
   Register: T;
@@ -20,6 +21,7 @@ export class ConnectServerService {
   }
 
   apiRoot: IRootLinks<string> = {
+    EmaiilSettings: 'http://localhost:3020/api/email/settings',
     UserState: 'http://localhost:3020/user/state',
     UserEmailState: 'http://localhost:3020/user/state/email',
     TestSessions: 'http://localhost:3020/user/register',
@@ -93,6 +95,14 @@ export class ConnectServerService {
 
   logOut() {
     return this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
+  }
+
+  getEmailSettings() {
+    return this.http.get(this.apiRoot.EmaiilSettings, this.httpOptions.default);
+  }
+
+  setEmailSettings(json) {
+    return this.http.post(this.apiRoot.EmaiilSettings, json, this.httpOptions.default);
   }
 
   /*

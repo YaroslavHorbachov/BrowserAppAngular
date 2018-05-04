@@ -13,7 +13,7 @@
       <mat-card-content >
         <form #f="ngForm" class="email-settings-tree">
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" ngModel >
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -23,6 +23,7 @@
                    name="header"
                    placeholder="Choose a header"
                    #header
+                   ngModel
             >
           </mat-form-field>
           <mat-form-field>
@@ -31,10 +32,11 @@
                    name="footer"
                    placeholder="Choose a footer"
                    #footer
+                   ngModel
             >
           </mat-form-field>
           <div class='buttonBox'>
-            <button mat-raised-button>Send</button>
+            <button mat-raised-button color="primary" (click)="setEmailSettings(f)">Send</button>
             <button mat-raised-button color="warn">Close</button>
           </div>
         </form>

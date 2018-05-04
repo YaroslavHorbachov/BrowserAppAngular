@@ -97,7 +97,7 @@ export class DialogEditComponent implements OnInit {
 
   ngOnInit() {
     this.leads = this.data.block
-      .filter(user => user.role === 'lead')
+      .filter(user => user.role === 'lead' && user.email !== this.data.email)
       .map(lead => {
         return {
           id: lead._id,
