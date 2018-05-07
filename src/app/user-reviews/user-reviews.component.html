@@ -1,5 +1,5 @@
 <div class="flexhead">
-  <button mat-raised-button color="accent" (click)="saveComment()" class="add-comment">Add Comment</button>
+  <button mat-raised-button color="accent" (click)="saveComment()" class="add-comment" [disabled]="commented">Add Comment</button>
   <form #form='ngForm'>
     <div>
       <h3>Data Filter </h3>

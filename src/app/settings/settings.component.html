@@ -1,5 +1,5 @@
-<mat-accordion>
-  <mat-expansion-panel>
+<mat-accordion >
+  <mat-expansion-panel #panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Email Data Setter
@@ -13,8 +13,17 @@
       <mat-card-content >
         <form #f="ngForm" class="email-settings-tree">
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" ngModel >
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input
+              matInput
+              required
+              [matDatepicker]="picker"
+              placeholder="Choose a date"
+              name="date"
+              [(ngModel)]="date" >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
           <mat-form-field>
@@ -22,8 +31,7 @@
                    required
                    name="header"
                    placeholder="Choose a header"
-                   #header
-                   ngModel
+                   [(ngModel)]="header"
             >
           </mat-form-field>
           <mat-form-field>
@@ -31,13 +39,12 @@
                    required
                    name="footer"
                    placeholder="Choose a footer"
-                   #footer
-                   ngModel
+                   [(ngModel)]="footer"
             >
           </mat-form-field>
           <div class='buttonBox'>
             <button mat-raised-button color="primary" (click)="setEmailSettings(f)">Send</button>
-            <button mat-raised-button color="warn">Close</button>
+            <button mat-raised-button color="warn" (click)="closeEmailSettings()">Close</button>
           </div>
         </form>
       </mat-card-content>

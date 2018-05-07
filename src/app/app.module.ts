@@ -28,6 +28,7 @@ import {DialogViewReviewComponent} from './dialog-view-review/dialog-view-review
 import { DialogResetpasswordComponent } from './dialog-resetpassword/dialog-resetpassword.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ReviewsManagementComponent } from './reviews-management/reviews-management.component';
 
 
 const appRoutes: Routes = [
@@ -48,6 +49,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'user-management', pathMatch: 'full', component: ManagementComponent
+  },
+  {
+    path: 'reviews-management', pathMatch: 'full', component: ReviewsManagementComponent
   },
   {
     path: 'reviews', pathMatch: 'full', component: ReviewsComponent
@@ -85,7 +89,8 @@ export function reviewsId(url: UrlSegment[]) {
     DialogViewReviewComponent,
     DialogResetpasswordComponent,
     SnackbarComponent,
-    SettingsComponent
+    SettingsComponent,
+    ReviewsManagementComponent
   ],
   imports: [
     MatNativeDateModule,

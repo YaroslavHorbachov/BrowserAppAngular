@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ManagementService} from '../management.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
@@ -15,7 +15,7 @@ import {DialogViewReviewComponent} from '../dialog-view-review/dialog-view-revie
 export class UserReviewsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  commented: boolean;
   dataForDate: any;
   queryString: string;
   listMessages: any;
@@ -45,8 +45,13 @@ export class UserReviewsComponent implements OnInit {
     this.managment
       .getMessagesList()
       .subscribe((data: any) => {
-        data.length ? this.createTable(data) : console.log('Not are data');
-        this.dataForDate = [...data];
+        if (data.length) {
+          const dataSet = data.filter(comment => comment.employee === this.queryString);
+          this.createTable(dataSet);
+          this.dataForDate = [...dataSet];
+          return true;
+        }
+        return console.log('Not are data');
       }, err => {
         console.log('Error on catch Message Table ', err);
       });
@@ -60,6 +65,7 @@ export class UserReviewsComponent implements OnInit {
     });
     const params = this.query.snapshot.url[0].path;
     this.queryString = params.split('-')[0];
+    this.commented = this.managment.getListCommentedUsers().includes(this.queryString);
     this.managment.renderTableReviews.next(true);
   }
 
@@ -78,13 +84,15 @@ export class UserReviewsComponent implements OnInit {
       data: data
     });
   }
+
   subFormReviews() {
-    const l = this.minSelectDate,
-      h = this.maxSelectDate,
-      filteredSet = this.dataForDate.filter(comment => {
-        return new Date(comment.date).getTime() >= l.getTime() &&
-          new Date(comment.date).getTime() <= h.getTime();
-      });
+    const l = Date.parse(this.minSelectDate.toLocaleDateString()),
+      h = Date.parse(this.maxSelectDate.toLocaleDateString());
+
+    const filteredSet = this.dataForDate.filter(comment => {
+      const target = Date.parse(new Date(comment.date).toLocaleDateString());
+      return target >= l && target <= h;
+    });
     this.createTable(filteredSet);
   }
 }

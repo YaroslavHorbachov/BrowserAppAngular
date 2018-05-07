@@ -3,6 +3,12 @@
   flex-direction: column;
   min-width: 400px;
 }
+.box-date {
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+}
+
 .header {
   min-height: 64px;
   padding: 8px 24px 0;
@@ -14,4 +20,7 @@
 .mat-table {
   overflow: auto;
   max-height: 500px;
+}
+img{
+  width: 100px;
 }

@@ -30,6 +30,7 @@ export class ManagementComponent implements OnInit {
       }
     });
   }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
@@ -98,14 +99,12 @@ export class DialogEditComponent implements OnInit {
   ngOnInit() {
     this.leads = this.data.block
       .filter(user => user.role === 'lead' && user.email !== this.data.email)
-      .map(lead => {
-        return {
-          id: lead._id,
-          name: lead.fname,
-          surname: lead.lname,
-          email: lead.email
-        };
-      });
+      .map(lead => ({
+        id: lead._id,
+        name: lead.fname,
+        surname: lead.lname,
+        email: lead.email
+      }));
     this.selectLeads = this.data.leads;
     this.roleSelect = this.data.role;
   }
@@ -134,6 +133,7 @@ export class DialogEditComponent implements OnInit {
     setTimeout(() => rerenderTable.next(true), 1000);
   }
 }
+
 export class IListUserData<T> {
   email: T;
   fname: T;

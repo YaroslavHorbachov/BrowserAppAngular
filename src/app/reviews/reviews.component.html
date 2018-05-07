@@ -3,42 +3,62 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div>
+<div class="box-date">
+  <div class="container mat-elevation-z17" >
+    <mat-table #table [dataSource]="listEmployees" matSort>
+      <ng-container matColumnDef="avatar">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let element"><img [src]="element.avatar" alt="avatar"></mat-cell>
+      </ng-container>
 
-<div class="container mat-elevation-z8" >
-  <mat-table #table [dataSource]="listEmployees" matSort>
-    <ng-container matColumnDef="avatar">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element"><img [src]="element.avatar" alt="avatar"></mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="email"> Email</mat-header-cell>
+        <mat-cell *matCellDef="let element"> <span>{{element.email}}</span></mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="email"> Email</mat-header-cell>
-      <mat-cell *matCellDef="let element"> <span>{{element.email}}</span></mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="fullname">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="fname"> Full Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"><span> {{element.fname}} {{element.lname}}</span></mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="fullname">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="fname"> Full Name</mat-header-cell>
-      <mat-cell *matCellDef="let element"><span> {{element.fname}} {{element.lname}}</span></mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef > Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div>
+            <button mat-raised-button color="primary" (click)='reviewAction(element)' >
+              <mat-icon>rate_review</mat-icon>
+             Review
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="hidden">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-checkbox
+            (change)="$event.source.checked = !$event.source.checked;"
+            [checked]="checked(element._id)"
+          >Check</mat-checkbox>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef > Actions</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <div>
-          <button mat-raised-button color="primary" (click)='reviewAction(element)'>
-            <mat-icon>rate_review</mat-icon>
-            Review
-          </button>
-        </div>
-      </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="listUserHead"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: listUserHead;"></mat-row>
+      <mat-header-row *matHeaderRowDef="listUserHead"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: listUserHead;">Here</mat-row>
 
-  </mat-table>
-  <mat-paginator #paginator
-                 [pageSize]="15"
-                 [pageSizeOptions]="[15, 30, 45]"
-                 [showFirstLastButtons]="true">
-  </mat-paginator>
+    </mat-table>
+    <mat-paginator #paginator
+                   [pageSize]="15"
+                   [pageSizeOptions]="[15, 30, 45]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+  <div class="date-field">
+    <mat-form-field >
+      <mat-select placeholder="Choose month"  >
+        <mat-option *ngFor="let date of months" [value]="date" (click)="editTableByMonth(date)">
+          {{ date | date: 'LLL yyyy'}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
