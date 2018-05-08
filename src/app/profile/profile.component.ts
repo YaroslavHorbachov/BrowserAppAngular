@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
   avatarURL: string;
   lastModify: string = null;
   lastVisit: string = null;
-  dialogData: any = null;
+  dialogData;
   namePerson: string;
   surnamePerson: string;
   form: FormGroup;

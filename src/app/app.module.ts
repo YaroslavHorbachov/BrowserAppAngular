@@ -29,6 +29,8 @@ import { DialogResetpasswordComponent } from './dialog-resetpassword/dialog-rese
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ReviewsManagementComponent } from './reviews-management/reviews-management.component';
+import {PrivateManagerService} from './private-manager.service';
+import { ReviewsManagerComponent } from './reviews-manager/reviews-manager.component';
 
 
 const appRoutes: Routes = [
@@ -55,6 +57,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'reviews', pathMatch: 'full', component: ReviewsComponent
+  },
+  {
+    path: 'reviews-manager', pathMatch: 'full', component: ReviewsManagerComponent
   },
   {
     path: 'settings', pathMatch: 'full', component: SettingsComponent
@@ -90,7 +95,8 @@ export function reviewsId(url: UrlSegment[]) {
     DialogResetpasswordComponent,
     SnackbarComponent,
     SettingsComponent,
-    ReviewsManagementComponent
+    ReviewsManagementComponent,
+    ReviewsManagerComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -105,6 +111,7 @@ export function reviewsId(url: UrlSegment[]) {
     MaterialModule
   ],
   providers: [
+    PrivateManagerService,
     ConnectServerService,
     ProfileService,
     ManagementService,

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ManagementService} from '../management.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subject} from 'rxjs/Subject';
+import {PrivateManagerService} from '../private-manager.service';
 
 
 const rerenderTable: Subject<boolean> = new Subject<boolean>();
@@ -19,7 +20,10 @@ export class ManagementComponent implements OnInit {
   listUser: MatTableDataSource<Array<IListUserData<string>>> = null;
   listUserHead = ['avatar', 'fname', 'lname', 'email', 'leads', 'role', 'actions'];
 
-  constructor(private managementService: ManagementService, private dialog: MatDialog) {
+  constructor(
+    private managementService: ManagementService,
+    private dialog: MatDialog,
+    private _pmanager: PrivateManagerService) {
     this.getListUserButton();
   }
 
@@ -40,12 +44,29 @@ export class ManagementComponent implements OnInit {
   getListUserButton() {
     this.managementService.getListUsers().subscribe((data: any) => {
       console.log('Rerender ', data);
-      this.listUser = new MatTableDataSource(data.data);
+      const filteredData = this.checkLeads([...data.data]);
+      this._pmanager.setListOfUsers([...data.data]);
+      this.listUser = new MatTableDataSource(filteredData);
       this.listUser.paginator = this.paginator;
       this.listUser.sort = this.sort;
     }, err => {
       console.log('Error in User list', err);
     });
+  }
+
+  checkLeads(data) {
+    /* let listOfLeads = [];
+    /!* const listLeads = *!/data.map(user => {
+       listOfLeads = [...listOfLeads, ...user.leads];
+     });*/
+    /*console.log('Check leads ', listOfLeads);*/
+    const listOfLeads = data.filter(user => user.role === 'lead').map(user => user.email);
+    data.forEach(user => {
+      user.leads.forEach((lead, id, arrLead) => {
+        return listOfLeads.includes(lead) ? null : arrLead.splice(id, 1);
+      });
+    });
+    return data;
   }
 
   deleteUser(value) {
@@ -86,6 +107,9 @@ export class ManagementComponent implements OnInit {
   styleUrls: ['./dialog-edit.css']
 })
 export class DialogEditComponent implements OnInit {
+  filteredManagerBase = [];
+  filteredManager: any;
+  managerControl: any;
   roleSelect: any;
   selectLeads: any;
   leads: any;
@@ -107,11 +131,35 @@ export class DialogEditComponent implements OnInit {
       }));
     this.selectLeads = this.data.leads;
     this.roleSelect = this.data.role;
+    this.getManagerList(this.data.block);
+  }
+
+  filteredManagerInput(value) {
+    this.filteredManager = this.filteredManagerBase
+      .filter(name => name.toLowerCase().indexOf(value.toLowerCase()) === 0);
+  }
+
+  getManagerList(base) {
+    this.filteredManagerBase = base
+      .filter(user => user.role === 'manager')
+      .map(user => {
+        return {user, text: `${user.fname} ${user.lname} ${user.email}`};
+      });
+    this.filteredManager = [...this.filteredManagerBase];
+  }
+
+  generateManagerFormData(manager) {
+    try {
+      return this.filteredManagerBase.filter(data => data.text === manager)[0].user;
+    } catch (e) {
+      return {};
+    }
   }
 
   resultHandler(form) {
     console.log(form.value);
     const value = form.value;
+    value.manager = this.generateManagerFormData(value.manager)._id;
     value.email = this.data.email;
     value.role = this.roleSelect;
     value.status = 'admin';

@@ -1,42 +1,44 @@
-
 <div style="text-align:center;">
-    <nav mat-tab-nav-bar>
-      <a mat-tab-link routerLink="" > Home </a>
-      <a mat-tab-link *ngIf='!isAuth' routerLink="/login"  > Login </a>
-      <a mat-tab-link *ngIf='!isAuth' routerLink="/register" > Register </a>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink=""> Home </a>
+    <a mat-tab-link *ngIf='!isAuth' routerLink="/login"> Login </a>
+    <a mat-tab-link *ngIf='!isAuth' routerLink="/register"> Register </a>
 
 
-      <div style="float: right" *ngIf="isAuth">
-        <span class="personBox" [matMenuTriggerFor]="menu">{{namePerson}}</span>
-        <mat-icon>account_circle</mat-icon>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item routerLink="profile">
-            <mat-icon>home</mat-icon>
-            <span>Profile</span>
-          </button>
-          <button *ngIf="rolePerson ==='admin'" mat-menu-item routerLink="user-management">
-            <mat-icon>assignment</mat-icon>
-            <span>Management</span>
-          </button>
-          <button  *ngIf="rolePerson ==='lead' || rolePerson ==='manager'" mat-menu-item routerLink="reviews">
-            <mat-icon>assignment_ind</mat-icon>
-            <span>{{rolePerson ==='lead' ? "Review" : "Leads review"}}</span>
-          </button>
-          <button  *ngIf="rolePerson ==='admin'" mat-menu-item routerLink="settings">
-            <mat-icon>build</mat-icon>
-            <span>Settings</span>
-          </button>
-          <button *ngIf="rolePerson ==='manager'" mat-menu-item routerLink="reviews-management">
-            <mat-icon>explore</mat-icon>
-            <span>Global review</span>
-          </button>
-          <button mat-menu-item routerLink="login" (click)="toAuth()">
-            <mat-icon>exit_to_app</mat-icon>
-            <span>Log Out</span>
-          </button>
-        </mat-menu>
-      </div>
-    </nav>
+    <div style="float: right" *ngIf="isAuth">
+      <span class="personBox" [matMenuTriggerFor]="menu">{{namePerson}}</span>
+      <mat-icon>account_circle</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="profile">
+          <mat-icon>home</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button *ngIf="rolePerson ==='admin'" mat-menu-item routerLink="user-management">
+          <mat-icon>assignment</mat-icon>
+          <span>Management</span>
+        </button>
+        <button
+          mat-menu-item
+          *ngIf="rolePerson ==='lead' || rolePerson ==='manager'"
+          [routerLink]="rolePerson === 'manager' ? 'reviews-manager' : 'reviews'">
+          <mat-icon>assignment_ind</mat-icon>
+          <span>Review</span>
+        </button>
+        <button *ngIf="rolePerson ==='admin'" mat-menu-item routerLink="settings">
+          <mat-icon>build</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button *ngIf="rolePerson ==='manager'" mat-menu-item routerLink="reviews-management">
+          <mat-icon>explore</mat-icon>
+          <span>Leads review</span>
+        </button>
+        <button mat-menu-item routerLink="login" (click)="toAuth()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Log Out</span>
+        </button>
+      </mat-menu>
+    </div>
+  </nav>
 
   <router-outlet (auth)="toAuth($event)"></router-outlet>
 

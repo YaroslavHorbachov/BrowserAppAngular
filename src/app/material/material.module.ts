@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule,
@@ -30,7 +31,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatSortModule,
     MatDatepickerModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatAutocompleteModule
   ],
   exports: [MatButtonModule,
     MatCheckboxModule,
@@ -47,7 +49,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatSortModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatAutocompleteModule
   ],
   declarations: []
 })

@@ -1,0 +1,25 @@
+.flexhead{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}
+.commentForm{
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+.full-width{
+  width: 100%;
+}
+.limit-message{
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+}
+.add-comment{
+  width: 30%;
+  height: auto;
+}

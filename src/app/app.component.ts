@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements DoCheck, OnInit {
   namePerson: string | boolean | void;
-  rolePerson = 'employee'
+  rolePerson = 'employee';
   isAuth: any = [false];
 
 
@@ -35,7 +35,6 @@ export class AppComponent implements DoCheck, OnInit {
       this.isAuth = resultArray[0];
       this.namePerson = resultArray[1];
       this.rolePerson = resultArray[2];
-
     } catch (e) {
       this.isAuth = [false];
     }
