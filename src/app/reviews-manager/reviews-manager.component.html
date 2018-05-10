@@ -36,9 +36,8 @@
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element">
           <mat-checkbox
-            (change)="$event.source.checked = !$event.source.checked;"
-            [checked]="checked(element._id)"
-          >Check</mat-checkbox>
+            (change)="$event.source.checked = !$event.source.checked">Check</mat-checkbox>
+            <!--[checked]="checked(element._id)"-->
         </mat-cell>
       </ng-container>
 
@@ -62,3 +61,4 @@
     </mat-form-field>
   </div>
 </div>
+

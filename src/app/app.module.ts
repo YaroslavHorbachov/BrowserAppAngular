@@ -31,6 +31,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ReviewsManagementComponent } from './reviews-management/reviews-management.component';
 import {PrivateManagerService} from './private-manager.service';
 import { ReviewsManagerComponent } from './reviews-manager/reviews-manager.component';
+import { MatTableManagerComponent } from './reviews-management/mat-table-manager/mat-table-manager.component';
 
 
 const appRoutes: Routes = [
@@ -96,7 +97,8 @@ export function reviewsId(url: UrlSegment[]) {
     SnackbarComponent,
     SettingsComponent,
     ReviewsManagementComponent,
-    ReviewsManagerComponent
+    ReviewsManagerComponent,
+    MatTableManagerComponent
   ],
   imports: [
     MatNativeDateModule,

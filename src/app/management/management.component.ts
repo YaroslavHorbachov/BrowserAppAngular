@@ -21,7 +21,7 @@ export class ManagementComponent implements OnInit {
   listUserHead = ['avatar', 'fname', 'lname', 'email', 'leads', 'role', 'actions'];
 
   constructor(
-    private managementService: ManagementService,
+    private management: ManagementService,
     private dialog: MatDialog,
     private _pmanager: PrivateManagerService) {
     this.getListUserButton();
@@ -42,7 +42,7 @@ export class ManagementComponent implements OnInit {
   }
 
   getListUserButton() {
-    this.managementService.getListUsers().subscribe((data: any) => {
+    this.management.getListUsers().subscribe((data: any) => {
       console.log('Rerender ', data);
       const filteredData = this.checkLeads([...data.data]);
       this._pmanager.setListOfUsers([...data.data]);
@@ -70,7 +70,7 @@ export class ManagementComponent implements OnInit {
   }
 
   deleteUser(value) {
-    this.managementService.removeUser(value).subscribe(data => {
+    this.management.removeUser(value).subscribe(data => {
         console.log('Data successdully delivered ', data);
         setTimeout(() => rerenderTable.next(true), 1000);
       },

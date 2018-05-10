@@ -1,11 +1,13 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs/Subject';
+import {AsyncSubject} from 'rxjs/AsyncSubject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ManagementService {
   renderTableReviews: Subject<any> = new Subject<any>();
-  listComentedUsers: Array<string>;
+  listComentedUsers: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>(['']);
 
   constructor(private _h: HttpClient, @Inject('HttpOptions') private httpOptions) {
   }
@@ -20,7 +22,8 @@ export class ManagementService {
   apiRootPostMessage = 'http://localhost:3020/api/sendMessage';
 
   setListCommentedUsers(list) {
-    this.listComentedUsers = [...list];
+    console.log('Take list ', list);
+    this.listComentedUsers.next([...list]);
   }
 
   getListCommentedUsers() {

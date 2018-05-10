@@ -4,6 +4,9 @@ import {ManagementService} from '../management.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogAddReviewComponent} from '../dialog-add-review/dialog-add-review.component';
 import {DialogViewReviewComponent} from '../dialog-view-review/dialog-view-review.component';
+import 'rxjs/add/operator/last';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/observeOn'
 
 
 @Component({
@@ -58,6 +61,7 @@ export class UserReviewsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isCommented();
     this.managment.renderTableReviews.subscribe(data => {
       if (data) {
         this.getMessageTable();
@@ -65,8 +69,12 @@ export class UserReviewsComponent implements OnInit {
     });
     const params = this.query.snapshot.url[0].path;
     this.queryString = params.split('-')[0];
-    this.commented = this.managment.getListCommentedUsers().includes(this.queryString);
     this.managment.renderTableReviews.next(true);
+  }
+
+  private isCommented() {
+    return this.managment.getListCommentedUsers()
+      .subscribe(data => console.log(data));
   }
 
   saveComment() {
