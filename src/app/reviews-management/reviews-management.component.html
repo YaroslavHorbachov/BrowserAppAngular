@@ -1,51 +1,62 @@
-<div>
-  <form #form='ngForm'>
-    <div>
-      <h3>Data Filter </h3>
-      <mat-form-field class="full-width">
-        <input matInput
-               name="minSelectDate"
-               [min]="minDate"
-               [max]="maxDate"
-               [matDatepicker]="picker"
-               placeholder="Choose a date"
-               [(ngModel)]="minSelectDate"
-               required
-        >
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput
-               required
-               name="maxSelectDate"
-               [min]="minSelectDate"
-               [max]="maxDate"
-               [matDatepicker]="picker2"
-               placeholder="Choose a date"
-               [(ngModel)]="maxSelectDate"
-        >
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-      <br>
-      <button mat-raised-button color="primary" (click)="subFormReviews(form.value)"> Filter</button>
-    </div>
-  </form>
+<div class="flexhead">
+  <div>
+    <button mat-raised-button color="primary" (click)="openReport()"> {{'Generate report'}}</button>
+  </div>
+  <div>
+    <form #form='ngForm'>
+      <div>
+        <h3>Data Filter </h3>
+        <mat-form-field class="full-width">
+          <input matInput
+                 name="minSelectDate"
+                 [min]="minDate"
+                 [max]="maxDate"
+                 [matDatepicker]="picker"
+                 placeholder="Choose a date"
+                 [(ngModel)]="minSelectDate"
+                 required
+          >
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput
+                 required
+                 name="maxSelectDate"
+                 [min]="minSelectDate"
+                 [max]="maxDate"
+                 [matDatepicker]="picker2"
+                 placeholder="Choose a date"
+                 [(ngModel)]="maxSelectDate"
+          >
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" (click)="subFormReviews(form.value)"> Filter</button>
+      </div>
+    </form>
+  </div>
 </div>
 
-<div *ngFor="let block of mainList">
+<div *ngFor="let block of mainList;let id=id">
 
-  <mat-expansion-panel>
+  <mat-expansion-panel >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <img [src]="block.avatar" alt="avatar" style="height: 50px">
+        <div style="height: 50px">
+          <img [src]="block.avatar" alt="avatar" style="border-radius: 50%; height: inherit; width:auto;">
+        </div>
       </mat-panel-title>
       <mat-panel-description>
-        {{block.name}} {{block.surname}}
+        <div style="padding: 10px">
+          {{block.name}} {{block.surname}}
+        </div>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <app-mat-table-manager [source]="block.employees"></app-mat-table-manager>
+   <div class="wrapper" >
+     <app-mat-table-manager [source]="block.employees" class="container" [user]="userList"></app-mat-table-manager>
+   </div>
   </mat-expansion-panel>
 
 </div>

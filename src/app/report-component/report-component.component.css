@@ -1,7 +1,4 @@
-div{
-  margin: 10px
-}
-.flexhead{
+.action-buttons{
   display: flex;
   justify-content: space-between;
   align-items: center;

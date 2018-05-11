@@ -6,12 +6,12 @@
       <mat-cell *matCellDef="let element"><span>{{element.date}}</span></mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="employeer">
+    <ng-container matColumnDef="employee">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Employeer</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.employee}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{giveDetails(element.employee)}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="text">
+    <ng-container matColumnDef="message">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Message</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.message}}</mat-cell>
     </ng-container>

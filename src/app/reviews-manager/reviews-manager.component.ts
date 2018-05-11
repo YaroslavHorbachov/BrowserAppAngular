@@ -42,7 +42,10 @@ export class ReviewsManagerComponent implements OnInit {
 
   ngOnInit() {
     this.getEmployees()
-      .map(data => {
+      .flatMap(base => {
+        const data = [];
+        base.map(obj => data.push(...obj));
+        console.log(data)
         this.backdataList = [...data];
         this.renderTable([...data]);
         return data;

@@ -6,22 +6,30 @@ import {MatSort, MatTableDataSource, Sort} from '@angular/material';
   templateUrl: './mat-table-manager.component.html',
   styleUrls: ['./mat-table-manager.component.css']
 })
-export class MatTableManagerComponent implements  OnInit {
+export class MatTableManagerComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @Input('source') source;
-  listUserHead: Array<string> = ['date', 'employeer', 'text'];
+  @Input('user') userList;
+  listUserHead: Array<string> = ['date', 'employee', 'message'];
   table: MatTableDataSource<Array<Object>> = null;
 
-  constructor() {
-  }
-
-
   ngOnInit() {
-    console.log(this.source)
+    console.log(this.source);
     this.table = new MatTableDataSource(this.source);
     this.table.sort = this.sort;
     console.log(this.table);
   }
 
-
+  giveDetails(id) {
+    let name, surname;
+    this.userList.forEach(user => {
+      const obj = user[id];
+      if (obj) {
+        name = obj.fname;
+        surname = obj.lname;
+      }
+      return false;
+    });
+    return ` ${name}  ${surname}`;
+  }
 }

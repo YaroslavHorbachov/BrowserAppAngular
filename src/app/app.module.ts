@@ -32,6 +32,8 @@ import { ReviewsManagementComponent } from './reviews-management/reviews-managem
 import {PrivateManagerService} from './private-manager.service';
 import { ReviewsManagerComponent } from './reviews-manager/reviews-manager.component';
 import { MatTableManagerComponent } from './reviews-management/mat-table-manager/mat-table-manager.component';
+import { ReportComponentComponent } from './report-component/report-component.component';
+import {DragulaModule} from 'ng2-dragula';
 
 
 const appRoutes: Routes = [
@@ -98,9 +100,11 @@ export function reviewsId(url: UrlSegment[]) {
     SettingsComponent,
     ReviewsManagementComponent,
     ReviewsManagerComponent,
-    MatTableManagerComponent
+    MatTableManagerComponent,
+    ReportComponentComponent
   ],
   imports: [
+    DragulaModule,
     MatNativeDateModule,
     FileUploadModule,
     CalendarModule,
@@ -124,7 +128,8 @@ export function reviewsId(url: UrlSegment[]) {
     DialogResetpasswordComponent,
     DialogViewReviewComponent,
     DialogEditComponent,
-    DialogAddReviewComponent
+    DialogAddReviewComponent,
+    ReportComponentComponent
   ],
   bootstrap: [AppComponent]
 })
