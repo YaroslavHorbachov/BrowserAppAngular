@@ -3,6 +3,12 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {HttpClient} from '@angular/common/http';
 import {ManagementService} from './management.service';
 
+
+const pdfOptions = {
+  'Content-Type': 'application/json',
+  'withCredentials': true,
+};
+
 @Injectable()
 export class PrivateManagerService {
   listOfUsers: BehaviorSubject<any> = new BehaviorSubject(0);
@@ -12,8 +18,13 @@ export class PrivateManagerService {
               private management: ManagementService) {
   }
 
-  /*REPLACE*/setListOfUsers(data) {
+  /*REPLACE*/
+  setListOfUsers(data) {
     this.listOfUsers.next(data);
+  }
+
+  getGeneratedPDF() {
+    return this._h.get(API.generatePDF,  {headers: pdfOptions, responseType: 'blob'});
   }
 
   giveDetails(id, userList) {
@@ -30,7 +41,7 @@ export class PrivateManagerService {
   }
 
   getListOfUsers() {
-    return this.management.getListUsers()
+    return this.management.getListUsers();
   }
 
   getManagerEmployees() {
@@ -41,9 +52,36 @@ export class PrivateManagerService {
     return this._h.post(API.manager_comment_list, json, this.httpOptions.default);
   }
 
+  generateReportTable(doc, table) {
+    const headerComments = ['data', 'employee', 'message'];
+    const nameRows = table.rows.map(gr => {
+      return gr.filter(el => el.innerText);
+    });
+    nameRows.forEach(pair => {
+      if (pair.length > 1) {
+        const dTable = doc.autoTableHtmlToJson(pair[1].children[0]);
+        doc.autoTable([pair[0]], [], {
+          startY: doc.autoTableEndPosY() + 0
+        });
+        dTable.data.unshift(dTable.columns);
+        doc.autoTable(headerComments, dTable.data, {
+          startY: doc.autoTableEndPosY() + 0
+        });
+      } else {
+        doc.autoTable([pair[0]], [], {
+          startY: doc.autoTableEndPosY() + 0
+        });
+
+      }
+    });
+    doc.save('table.pdf');
+  }
+
+
 }
 
 const API = {
+  generatePDF: 'http://localhost:3020/api/generatePDF',
   manager_list: 'http://localhost:3020/api/manager/list',
   manager_comment_list: 'http://localhost:3020/api/manager/comment-list'
 };

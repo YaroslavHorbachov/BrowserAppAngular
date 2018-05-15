@@ -34,6 +34,7 @@ import { ReviewsManagerComponent } from './reviews-manager/reviews-manager.compo
 import { MatTableManagerComponent } from './reviews-management/mat-table-manager/mat-table-manager.component';
 import { ReportComponentComponent } from './report-component/report-component.component';
 import {DragulaModule} from 'ng2-dragula';
+import { OptionsPdfComponent } from './options-pdf/options-pdf.component';
 
 
 const appRoutes: Routes = [
@@ -101,7 +102,8 @@ export function reviewsId(url: UrlSegment[]) {
     ReviewsManagementComponent,
     ReviewsManagerComponent,
     MatTableManagerComponent,
-    ReportComponentComponent
+    ReportComponentComponent,
+    OptionsPdfComponent
   ],
   imports: [
     DragulaModule,
@@ -129,7 +131,8 @@ export function reviewsId(url: UrlSegment[]) {
     DialogViewReviewComponent,
     DialogEditComponent,
     DialogAddReviewComponent,
-    ReportComponentComponent
+    ReportComponentComponent,
+    OptionsPdfComponent
   ],
   bootstrap: [AppComponent]
 })

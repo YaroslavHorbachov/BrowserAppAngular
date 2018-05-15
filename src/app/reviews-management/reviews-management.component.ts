@@ -23,6 +23,14 @@ export class ReviewsManagementComponent implements OnInit {
   ) {
   }
 
+  ngOnInit() {
+    this._pmanager.getListOfUsers().subscribe((data: any) => {
+      console.log(data);
+      this.mainList = data.data;
+      this.userList = data.user;
+    });
+  }
+
   openReport() {
     this.report.open(ReportComponentComponent, {
       minWidth: 700,
@@ -32,14 +40,6 @@ export class ReviewsManagementComponent implements OnInit {
         userList: this.userList
       }});
 
-  }
-
-  ngOnInit() {
-    this._pmanager.getListOfUsers().subscribe((data: any) => {
-      console.log(data);
-      this.mainList = data.data;
-      this.userList = data.user;
-    });
   }
 
 

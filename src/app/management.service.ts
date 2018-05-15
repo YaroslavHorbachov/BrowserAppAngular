@@ -4,6 +4,11 @@ import {Subject} from 'rxjs/Subject';
 import {AsyncSubject} from 'rxjs/AsyncSubject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
+const opt = {
+  'Content-Type': 'application/json',
+  'withCredentials': true
+};
+
 @Injectable()
 export class ManagementService {
   renderTableReviews: Subject<any> = new Subject<any>();
@@ -31,7 +36,7 @@ export class ManagementService {
   }
 
   getListUsers() {
-    return this._h.get(this.apiRootUserList, this.httpOptions.default);
+    return this._h.get(this.apiRootUserList,  opt);
   }
 
   getEmployeeList() {

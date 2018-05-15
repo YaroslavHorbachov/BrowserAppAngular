@@ -1,0 +1,20 @@
+<form class="form-radio-button" #f="ngForm" (ngSubmit)="submitForm(f)">
+  <mat-radio-group class='flex-radio-buttons' labelPosition="after" name="orientation" [ngModel]="'portrait'">
+    <mat-radio-button value="portrait">Portrait</mat-radio-button>
+    <mat-radio-button value="landscape">Landscape</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field>
+    <input type="text"
+           matInput
+           placeholder="Email Receiver"
+           ngModel
+           name="receiver">
+
+  </mat-form-field>
+
+
+  <button mat-raised-button color="primary"> Submit</button>
+  <button mat-raised-button color="warn" (click)="generatePDF()">GENERATE</button>
+
+
+</form>
