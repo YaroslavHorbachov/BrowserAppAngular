@@ -18,7 +18,7 @@ export class ReviewsManagementComponent implements OnInit {
   maxSelectDate: any;
 
   constructor(
-    private _mservice: PrivateManagerService,
+    private _pmanager: PrivateManagerService,
     private report: MatDialog
   ) {
   }
@@ -35,7 +35,7 @@ export class ReviewsManagementComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._mservice.getListOfUsers().subscribe((data: any) => {
+    this._pmanager.getListOfUsers().subscribe((data: any) => {
       console.log(data);
       this.mainList = data.data;
       this.userList = data.user;

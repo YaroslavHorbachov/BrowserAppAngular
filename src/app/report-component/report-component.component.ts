@@ -1,10 +1,9 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatSort} from '@angular/material';
 import {DialogEditComponent} from '../management/management.component';
-import {DragulaModule, DragulaService} from 'ng2-dragula';
-
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import {PrivateManagerService} from '../private-manager.service';
 
 @Component({
   selector: 'app-report-component',
@@ -13,120 +12,61 @@ import 'jspdf-autotable';
 })
 export class ReportComponentComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('table') table: ElementRef;
   mainList: Array<Object>;
   userList: Array<Object>;
   options: Object;
-  items = [...this.mainList];
+  headers: Array<string> = ['lead', 'comments'];
   public items: Array<string> = ['The', 'possibilities', 'are', 'endless!'];
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dragulaService: DragulaService
+    private _pmanager: PrivateManagerService
   ) {
-    dragulaService.dropModel.subscribe((value) => {
-      this.onDropModel(value.slice(1));
-
-    });
-    dragulaService.removeModel.subscribe((value) => {
-      this.onRemoveModel(value.slice(1));
-
-    });
-    /*dragulaService.setOptions('bag-one', {
-
-    });*/
-    dragulaService.drag.subscribe((value) => {
-      // console.log(value);
-
-      // this.onDrag(value.slice(1));
-    });
-    dragulaService.drop.subscribe((value) => {
-
-      // console.log(value);
-      // this.onDrop(value.slice(1));
-    });
-    /* dragulaService.over.subscribe((value) => {
-       console.log(`over: ${value[0]}`);
-       this.onOver(value.slice(1));
-     });
-     dragulaService.out.subscribe((value) => {
-       console.log(`out: ${value[0]}`);
-       this.onOut(value.slice(1));
-     });*/
     this.mainList = this.data.mainList;
     this.userList = this.data.userList;
   }
 
   ngOnInit() {
-    console.log(this.items);
     this.options = {
       removeOnSpill: true,
       direction: 'vertical'
     };
   }
 
-  private onDropModel(args) {
-    const [el, target, source] = args;
-    // console.log('DROP =>= = > = >', target, source)
-
+  giveDetails(id) {
+    return this._pmanager.giveDetails(id, this.userList)
   }
 
-  private onRemoveModel(args) {
-    const [el, source] = args;
-
-    // console.log('REMOVE =>= = > = >', el, source)
-  }
-
-  private onDrag(args) {
-    const [e, el] = args;
-
-    // do something
-    // console.log(e, el);
-  }
-
-  private onDrop(args) {
-
-    const [e, el] = args;
-    // console.log(e, el);
-    // do something
-  }
-
-  private onOver(args) {
-
-    const [e, el, container] = args;
-    // console.log(e, el, container);
-    // do something
-  }
-
-  private onOut(args) {
-
-    const [e, el, container] = args;
-    // console.log(e, el, container);
-    // do something
-  }
-
-  generatePdf() {
-    const columns = ['', 'Anatolyew', 'Dima'];
-    const rows = [
-      ['date', 'employee', 'message'],
-      [1, 'Shaw', 'Tanzania'],
-      [2, 'Nelson', 'Kazakhstan'],
-      [3, 'Garcia', 'Madagascar']
-    ];
-
+ public  generatePdf() {
+    const headerComments = ['data', 'employee', 'message'];
     const doc = new jsPDF('p', 'pt');
-    const res = doc.autoTableHtmlToJson();
-    console.log(res);
-    doc.autoTable(columns, rows);
-    doc.autoTable(columns, rows, {
-      startY: doc.autoTableEndPosY()
+    const res = doc.autoTableHtmlToJson(this.table.nativeElement);
+    const nameRows = res.rows.map(gr => {
+      return gr.filter(el => el.innerText);
     });
+    nameRows.forEach(pair => {
+      if (pair.length > 1) {
+        const table = doc.autoTableHtmlToJson(pair[1].children[0]);
+        doc.autoTable([pair[0]], [], {
+          startY: doc.autoTableEndPosY() + 0
+        });
+        table.data.unshift(table.columns);
+        doc.autoTable(headerComments, table.data, {
+          startY: doc.autoTableEndPosY() + 0
+        });
+      } else {
+        doc.autoTable([pair[0]], [], {
+          startY: doc.autoTableEndPosY() + 0
+        });
 
-    // doc.save('table.pdf');
-
+      }
+    });
+    doc.save('table.pdf');
   }
 
-  closeDialog() {
+  public closeDialog() {
     this.dialogRef.close();
   }
 

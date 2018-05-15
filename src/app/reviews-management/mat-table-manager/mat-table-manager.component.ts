@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {PrivateManagerService} from '../../private-manager.service';
 
 @Component({
   selector: 'app-mat-table-manager',
@@ -13,23 +14,15 @@ export class MatTableManagerComponent implements OnInit {
   listUserHead: Array<string> = ['date', 'employee', 'message'];
   table: MatTableDataSource<Array<Object>> = null;
 
+  constructor(private _pmanager: PrivateManagerService) {
+  }
+
   ngOnInit() {
-    console.log(this.source);
     this.table = new MatTableDataSource(this.source);
     this.table.sort = this.sort;
-    console.log(this.table);
   }
 
   giveDetails(id) {
-    let name, surname;
-    this.userList.forEach(user => {
-      const obj = user[id];
-      if (obj) {
-        name = obj.fname;
-        surname = obj.lname;
-      }
-      return false;
-    });
-    return ` ${name}  ${surname}`;
+    return this._pmanager.giveDetails(id, this.userList);
   }
 }

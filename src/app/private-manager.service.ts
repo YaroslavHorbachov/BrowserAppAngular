@@ -16,6 +16,19 @@ export class PrivateManagerService {
     this.listOfUsers.next(data);
   }
 
+  giveDetails(id, userList) {
+    let name, surname;
+    userList.forEach(user => {
+      const obj = user[id];
+      if (obj) {
+        name = obj.fname;
+        surname = obj.lname;
+      }
+      return id;
+    });
+    return ` ${name}  ${surname}`;
+  }
+
   getListOfUsers() {
     return this.management.getListUsers()
   }
