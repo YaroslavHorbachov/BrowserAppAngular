@@ -5,3 +5,12 @@
   width: 100%;
 
 }
+.flex-radio-buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.control {
+  width: 100%;
+}
+

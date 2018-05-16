@@ -35,6 +35,7 @@ import { MatTableManagerComponent } from './reviews-management/mat-table-manager
 import { ReportComponentComponent } from './report-component/report-component.component';
 import {DragulaModule} from 'ng2-dragula';
 import { OptionsPdfComponent } from './options-pdf/options-pdf.component';
+import { DepartmentComponent } from './department/department.component';
 
 
 const appRoutes: Routes = [
@@ -64,6 +65,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'reviews-manager', pathMatch: 'full', component: ReviewsManagerComponent
+  },
+  {
+    path: 'reviews-department', pathMatch: 'full', component: DepartmentComponent
   },
   {
     path: 'settings', pathMatch: 'full', component: SettingsComponent
@@ -103,7 +107,8 @@ export function reviewsId(url: UrlSegment[]) {
     ReviewsManagerComponent,
     MatTableManagerComponent,
     ReportComponentComponent,
-    OptionsPdfComponent
+    OptionsPdfComponent,
+    DepartmentComponent
   ],
   imports: [
     DragulaModule,

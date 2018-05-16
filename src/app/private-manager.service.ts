@@ -2,12 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {HttpClient} from '@angular/common/http';
 import {ManagementService} from './management.service';
-
-
-const pdfOptions = {
-  'Content-Type': 'application/json',
-  'withCredentials': true,
-};
+import {JsonPDF} from './options-pdf/jsonPDF.model';
 
 @Injectable()
 export class PrivateManagerService {
@@ -23,8 +18,9 @@ export class PrivateManagerService {
     this.listOfUsers.next(data);
   }
 
-  getGeneratedPDF() {
-    return this._h.get(API.generatePDF,  {headers: pdfOptions, responseType: 'blob'});
+  getGeneratedPDF(json: JsonPDF) {
+    return this._h.post(API.generatePDF,  json,
+      {headers: this.httpOptions.default, responseType: 'blob'});
   }
 
   giveDetails(id, userList) {

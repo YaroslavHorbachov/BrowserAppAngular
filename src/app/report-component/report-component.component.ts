@@ -34,7 +34,7 @@ export class ReportComponentComponent  {
     this.optionsPDF.open(OptionsPdfComponent, {
       minWidth: 700,
       minHeight: 500,
-      data: { table: this.table, }
+      data: { main: this.mainList, list: this.userList }
     });
   }
   public closeDialog() {

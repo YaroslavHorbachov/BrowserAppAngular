@@ -1,7 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
+import {Component,  OnInit} from '@angular/core';
+import {ActivatedRoute,  Router} from '@angular/router';
 import {ConnectServerService} from '../connect-server.service';
-import {IResponseData} from '../iresponse-data';
 import {MatSnackBar} from '@angular/material';
 import {SnackbarComponent} from '../snackbar/snackbar.component';
 

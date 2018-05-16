@@ -3,6 +3,9 @@ import {PrivateManagerService} from '../private-manager.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import {OptionsModel} from './options.model';
+import {TableData} from './tabledata.model';
+import {JsonPDF} from './jsonPDF.model';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -13,49 +16,35 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./options-pdf.component.css']
 })
 export class OptionsPdfComponent implements OnInit {
-  options: Object;
+  options: OptionsModel = new OptionsModel();
+  dataTable: TableData;
 
   constructor(
     public dialogRef: MatDialogRef<OptionsPdfComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _pmanager: PrivateManagerService,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
-    const table = this.data.table;
-    const fn = this.data.fn;
-    const doc = new JSPDF('p', 'pt');
-    const Table = doc.autoTableHtmlToJson(table.nativeElement);
+    this.dataTable = new TableData(this.data.main, this.data.list);
 
-    console.log(doc, Table, fn);
-    console.log('Worked');
+    console.log('Worked ', this.dataTable);
   }
 
 
-  generatePDF() {/*
-    const docDefinition = {content: 'This is an sample PDF printed with pdfMake'};
-
-    pdfMake.createPdf(docDefinition).open();
-*/
-    this._pmanager.getGeneratedPDF().subscribe((data: any) => {
-
-      /*const file = new Blob([data], {type: 'application/pdf'});
-      console.log('BLOB ', file)
-      const fileURL = URL.createObjectURL(file);
-      window.open(fileURL);*/
-
-
-
-
-      console.log('BLOB ', data)
-      const fileURL = URL.createObjectURL(data);
-      window.open(fileURL);
-    });
+  generatePDF() {
+    const json: JsonPDF = new JsonPDF('pdf', this.options, this.dataTable);
+    this._pmanager.getGeneratedPDF(json).subscribe(
+      (data: any) => {
+        console.log('Success');
+        const fileURL = URL.createObjectURL(data);
+        window.open(fileURL);
+      });
   }
-  submitForm(f){
-    console.log('FORM ', f.value)
+
+  submitForm() {
+    const json: JsonPDF = new JsonPDF('form', this.options, this.dataTable);
+    this._pmanager.getGeneratedPDF(json).subscribe(console.log);
   }
 
   onClose() {
@@ -63,3 +52,5 @@ export class OptionsPdfComponent implements OnInit {
   }
 
 }
+
+
