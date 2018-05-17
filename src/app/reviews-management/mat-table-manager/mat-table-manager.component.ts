@@ -1,6 +1,6 @@
 import {AfterContentInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatSort, MatTableDataSource, Sort} from '@angular/material';
-import {PrivateManagerService} from '../../private-manager.service';
+import {PrivateManagerService} from '../../services/private-manager.service';
 
 @Component({
   selector: 'app-mat-table-manager',

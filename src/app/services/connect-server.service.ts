@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-interface IRootLinks<T> {
+export interface IRootLinks<T> {
   EmaiilSettings: T;
   UserState: T;
   TestSessions: T;
@@ -17,10 +17,10 @@ interface IRootLinks<T> {
 
 @Injectable()
 export class ConnectServerService {
-  constructor(private http: HttpClient, @Inject('HttpOptions') private httpOptions) {
+  constructor(private _h: HttpClient, @Inject('HttpOptions') private httpOptions) {
   }
 
-  apiRoot: IRootLinks<string> = {
+ private apiRoot: IRootLinks<string> = {
     EmaiilSettings: 'http://localhost:3020/api/email/settings',
     UserState: 'http://localhost:3020/user/state',
     UserEmailState: 'http://localhost:3020/user/state/email',
@@ -35,19 +35,19 @@ export class ConnectServerService {
   };
 
   getAuthCheck() {
-    return this.http.get(this.apiRoot.UserState, this.httpOptions.default);
+    return this._h.get(this.apiRoot.UserState, this.httpOptions.default);
   }
 
   getUserEmailCheck(json) {
-    return this.http.post(this.apiRoot.UserEmailState, json, this.httpOptions.default);
+    return this._h.post(this.apiRoot.UserEmailState, json, this.httpOptions.default);
   }
 
   getRegister(json) {
-    return this.http.post(this.apiRoot.Register, json, this.httpOptions.default);
+    return this._h.post(this.apiRoot.Register, json, this.httpOptions.default);
   }
 
   getLogin(json) {
-    return this.http.post(this.apiRoot.Login, json, this.httpOptions.default);
+    return this._h.post(this.apiRoot.Login, json, this.httpOptions.default);
   }
 
   authToTrue(data) {
@@ -94,15 +94,15 @@ export class ConnectServerService {
   }
 
   logOut() {
-    return this.http.get(this.apiRoot.LogOut, this.httpOptions.default);
+    return this._h.get(this.apiRoot.LogOut, this.httpOptions.default);
   }
 
   getEmailSettings() {
-    return this.http.get(this.apiRoot.EmaiilSettings, this.httpOptions.default);
+    return this._h.get(this.apiRoot.EmaiilSettings, this.httpOptions.default);
   }
 
   setEmailSettings(json) {
-    return this.http.post(this.apiRoot.EmaiilSettings, json, this.httpOptions.default);
+    return this._h.post(this.apiRoot.EmaiilSettings, json, this.httpOptions.default);
   }
 
   /*
@@ -113,11 +113,11 @@ export class ConnectServerService {
   */
 
   getLog() {
-    return this.http.get(this.apiRoot.Log, this.httpOptions.default);
+    return this._h.get(this.apiRoot.Log, this.httpOptions.default);
   }
 
   getFacebookUser() {
-    return this.http.get(this.apiRoot.TestNgRok, this.httpOptions.default);
+    return this._h.get(this.apiRoot.TestNgRok, this.httpOptions.default);
   }
 
 }

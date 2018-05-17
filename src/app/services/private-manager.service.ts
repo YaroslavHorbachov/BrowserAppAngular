@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {HttpClient} from '@angular/common/http';
 import {ManagementService} from './management.service';
-import {JsonPDF} from './options-pdf/jsonPDF.model';
+import {JsonPDF} from '../options-pdf/jsonPDF.model';
 
 @Injectable()
 export class PrivateManagerService {

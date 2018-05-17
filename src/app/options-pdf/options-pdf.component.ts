@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {PrivateManagerService} from '../private-manager.service';
+import {PrivateManagerService} from '../services/private-manager.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';

@@ -1,6 +1,6 @@
 import {Component,  OnInit} from '@angular/core';
 import {ActivatedRoute,  Router} from '@angular/router';
-import {ConnectServerService} from '../connect-server.service';
+import {ConnectServerService} from '../services/connect-server.service';
 import {MatSnackBar} from '@angular/material';
 import {SnackbarComponent} from '../snackbar/snackbar.component';
 

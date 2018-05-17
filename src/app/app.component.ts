@@ -1,5 +1,5 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {ConnectServerService} from './connect-server.service';
+import {ConnectServerService} from './services/connect-server.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -24,6 +24,8 @@ export class AppComponent implements DoCheck, OnInit {
               role = data.role,
               dataSend = {name, role};
             this.register.authToTrue(dataSend);
+          } else {
+            this.register.authToFalse(); // HERE WORK WITH BUG OF STARTED BROWSER
           }
         },
         (err: any) => console.log('getAuthCheck error ', err));

@@ -1,7 +1,7 @@
 import {Component, DoCheck, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {ProfileService} from '../profile.service';
+import {ProfileService} from '../services/profile.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ConnectServerService} from '../connect-server.service';
+import {ConnectServerService} from '../services/connect-server.service';
 import {MatDialog} from '@angular/material';
 import {DialogResetpasswordComponent} from '../dialog-resetpassword/dialog-resetpassword.component';
 

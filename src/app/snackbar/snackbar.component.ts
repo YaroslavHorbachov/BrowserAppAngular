@@ -1,6 +1,6 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from '@angular/material';
-import {ProfileService} from '../profile.service';
+import {ProfileService} from '../services/profile.service';
 
 @Component({
   selector: 'app-snackbar',

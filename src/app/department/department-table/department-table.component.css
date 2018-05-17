@@ -1,0 +1,9 @@
+.header {
+  min-height: 64px;
+  min-width: 300px;
+  padding: 8px 24px 0;
+}
+mat-row>mat-cell>img{
+  width: 50px;
+}
+

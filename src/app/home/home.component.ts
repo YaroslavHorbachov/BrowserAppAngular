@@ -1,5 +1,5 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {ConnectServerService} from '../connect-server.service';
+import {ConnectServerService} from '../services/connect-server.service';
 
 @Component({
   selector: 'app-home',

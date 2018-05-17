@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ManagementService} from '../management.service';
+import {ManagementService} from '../services/management.service';
 
 @Component({
   selector: 'app-dialog-add-review',

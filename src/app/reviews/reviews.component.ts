@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ManagementService} from '../management.service';
+import {ManagementService} from '../services/management.service';
 import {MatCheckbox, MatCheckboxChange, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
 

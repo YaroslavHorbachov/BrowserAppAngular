@@ -1,7 +1,7 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSort} from '@angular/material';
 
-import {PrivateManagerService} from '../private-manager.service';
+import {PrivateManagerService} from '../services/private-manager.service';
 import {OptionsPdfComponent} from '../options-pdf/options-pdf.component';
 
 @Component({

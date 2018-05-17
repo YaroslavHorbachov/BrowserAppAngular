@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ManagementService} from '../management.service';
+import {ManagementService} from '../services/management.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DialogAddReviewComponent} from '../dialog-add-review/dialog-add-review.component';
 import {DialogViewReviewComponent} from '../dialog-view-review/dialog-view-review.component';

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {PrivateManagerService} from '../private-manager.service';
-import {ManagementService} from '../management.service';
+import {PrivateManagerService} from '../services/private-manager.service';
+import {ManagementService} from '../services/management.service';
 import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {ReportComponentComponent} from '../report-component/report-component.component';
 

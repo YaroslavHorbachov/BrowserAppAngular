@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {PrivateManagerService} from '../private-manager.service';
-import {ConnectServerService} from '../connect-server.service';
+import {PrivateManagerService} from '../services/private-manager.service';
+import {ConnectServerService} from '../services/connect-server.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import 'rxjs/add/operator/mergeMap';
 import {Router} from '@angular/router';
 import {ManagementComponent} from '../management/management.component';
-import {ManagementService} from '../management.service';
+import {ManagementService} from '../services/management.service';
 
 @Component({
   selector: 'app-reviews-manager',

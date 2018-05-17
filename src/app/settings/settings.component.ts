@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ConnectServerService} from '../connect-server.service';
+import {ConnectServerService} from '../services/connect-server.service';
 import {MatExpansionPanel} from '@angular/material';
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {ConnectServerService} from '../connect-server.service';
+import {ConnectServerService} from '../services/connect-server.service';
 import {Router} from '@angular/router';
 
 
