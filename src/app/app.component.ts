@@ -11,15 +11,12 @@ export class AppComponent implements DoCheck, OnInit {
   namePerson: string | boolean | void;
   rolePerson = 'employee';
   isAuth: any = [false];
-
-
-  constructor(private register: ConnectServerService) {
-  }
-
+  constructor(private register: ConnectServerService) {}
   ngOnInit(): void {
     this.register.getAuthCheck()
       .subscribe((data: any) => {
           if (data) {
+            console.log('INIT USER ', data);
             const name = data.fname,
               role = data.role,
               dataSend = {name, role};

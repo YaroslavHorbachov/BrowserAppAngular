@@ -1,27 +1,32 @@
-export class Comment{
+import {User} from './user.model';
+import {Injectable} from '@angular/core';
+
+@Injectable()
+export class Comment {
   private date: string;
   private employee: string;
   private lead: string;
   private message: string;
   private manager: string;
-
-  constructor({date, employee, lead, message, manager}) {
+  private base: Array<User>;
+  private user_employer: User;
+  private avatar: string;
+  constructor(
+    {date, employee, lead, message, manager, base}
+  ) {
     this.date = date;
     this.employee = employee;
     this.lead = lead;
     this.message = message;
     this.manager = manager;
-  }
-  set base(base){
-    this._base = [...base];
+    this.base = base;
   }
 
   get fullname() {
-    return this._base && this.compute();
-  }
-
-  compute() {
-    console.log('MODEL ', this._base)
+    const [employee] = this.base.filter(user => user._id === this.employee);
+    this.user_employer = employee;
+    this.avatar = this.user_employer.avatar;
+    return `${employee.fname} ${employee.lname}`;
   }
 }
 

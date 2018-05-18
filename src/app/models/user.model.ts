@@ -9,7 +9,11 @@ export class User {
   private manager: Array<Object>;
   private lastModifyed: Date;
   private lastVisit: Date;
+  private _id: string;
+
+
   constructor({
+                _id,
                 fname,
                 lname,
                 role,
@@ -21,6 +25,7 @@ export class User {
                 lastModifyed,
                 lastVisit
               }) {
+    this._id = _id
     this.fname = fname;
     this.lname = lname;
     this.role = role;
@@ -37,3 +42,4 @@ export class User {
     return `${this.fname} ${this.lname}`;
   }
 }
+

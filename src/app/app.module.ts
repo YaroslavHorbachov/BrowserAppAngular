@@ -40,6 +40,7 @@ import {DepartmentComponent} from './department/department.component';
 import {TableRenderService} from './services/table-render.service';
 import {DepartmentService} from './services/department-service.service';
 import { DepartmentTableComponent } from './department/department-table/department-table.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 
 const appRoutes: Routes = [
@@ -116,6 +117,7 @@ export function reviewsId(url: UrlSegment[]) {
     DepartmentTableComponent
   ],
   imports: [
+    InfiniteScrollModule,
     DragulaModule,
     MatNativeDateModule,
     FileUploadModule,
