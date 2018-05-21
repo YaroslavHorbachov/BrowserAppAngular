@@ -1,0 +1,7 @@
+.flexhead{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}

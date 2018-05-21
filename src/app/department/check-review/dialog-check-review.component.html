@@ -1,0 +1,8 @@
+<mat-card>
+  <mat-card-title>Review</mat-card-title>
+<mat-card-content> {{data.employer.role }} {{data.employer.fname |  uppercase}} {{data.employer.fname |  uppercase}}</mat-card-content>
+  <mat-card-actions class="flexhead">
+    <button mat-button color="primary" (click)="submitAction()"> Reviewed </button>
+    <button mat-button color="warn" (click)="dismissAction()"> Cancel </button>
+  </mat-card-actions>
+</mat-card>

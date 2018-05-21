@@ -41,6 +41,7 @@ import {TableRenderService} from './services/table-render.service';
 import {DepartmentService} from './services/department-service.service';
 import { DepartmentTableComponent } from './department/department-table/department-table.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { DialogCheckReviewComponent } from './department/check-review/dialog-check-review.component';
 
 
 const appRoutes: Routes = [
@@ -114,7 +115,8 @@ export function reviewsId(url: UrlSegment[]) {
     ReportComponentComponent,
     OptionsPdfComponent,
     DepartmentComponent,
-    DepartmentTableComponent
+    DepartmentTableComponent,
+    DialogCheckReviewComponent
   ],
   imports: [
     InfiniteScrollModule,
@@ -146,7 +148,8 @@ export function reviewsId(url: UrlSegment[]) {
     DialogEditComponent,
     DialogAddReviewComponent,
     ReportComponentComponent,
-    OptionsPdfComponent
+    OptionsPdfComponent,
+    DialogCheckReviewComponent
   ],
   bootstrap: [AppComponent]
 })

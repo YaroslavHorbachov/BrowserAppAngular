@@ -18,7 +18,7 @@
           <div class="img"><img [src]="employee.avatar" alt="avatar"></div>
           <mat-card-title class="title">#{{id + 1}} {{employee.fullname}}</mat-card-title>
           <mat-card-subtitle>{{employee.role}}</mat-card-subtitle>
-          <mat-checkbox (change)="checkBox(employee)">Reviewed</mat-checkbox>
+          <mat-checkbox (change)="$event.source.checked = !$event.source.checked "  [checked]="isReviewed(employee)" (click)="openDialog(employee)">Reviewed</mat-checkbox>
         </mat-card-header>
         <mat-card-content>
           <app-department-table
