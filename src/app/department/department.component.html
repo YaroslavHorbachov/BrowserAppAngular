@@ -1,36 +1,41 @@
-<div class="view-button" >
-  <mat-checkbox [(checked)]="viewAll">
-    View All
-  </mat-checkbox>
-</div>
-<div class="container"
-     (scrolled)="onScrollDown($event)"
-     infiniteScroll
-     [infiniteScrollDistance]="'1'"
-     [infiniteScrollThrottle]="'100'"
-     [scrollWindow]="false"
->
-    <div class="wrapper"
-         >
+  <mat-progress-bar mode="indeterminate" *ngIf="!listEmployees"></mat-progress-bar>
+  <div *ngIf="listEmployees">
+    <div class="view-button" >
+      <mat-checkbox [(checked)]="viewAll" (change)="viewAllChange()">
+        View All
+      </mat-checkbox>
+    </div>
+    <div class="container"
+         (scrolled)="onScrollDown($event)"
+         infiniteScroll
+         [infiniteScrollDistance]="'1'"
+         [infiniteScrollThrottle]="'100'"
+         [scrollWindow]="false"
+    >
+      <div class="wrapper"
+      >
 
-      <mat-card class="example-card" *ngFor="let employee of listEmployees; let id = index">
-        <mat-card-header class="flexhead">
-          <div class="img"><img [src]="employee.avatar" alt="avatar"></div>
-          <mat-card-title class="title">#{{id + 1}} {{employee.fullname}}</mat-card-title>
-          <mat-card-subtitle>{{employee.role}}</mat-card-subtitle>
-          <mat-checkbox (change)="$event.source.checked = !$event.source.checked "  [checked]="isReviewed(employee)" (click)="openDialog(employee)">Reviewed</mat-checkbox>
-        </mat-card-header>
-        <mat-card-content>
-          <app-department-table
-            [employer]="employee"
-            [tableData]="tableMessages"
-            [baseData]="listEmployees"
-          ></app-department-table>
-        </mat-card-content>
-        <mat-card-actions>
+        <mat-card class="example-card" *ngFor="let employee of listEmployees; let id = index">
+          <mat-card-header class="flexhead">
+            <div class="img"><img [src]="employee.avatar" alt="avatar"></div>
+            <mat-card-title class="title">#{{id + 1}} {{employee.fullname}}</mat-card-title>
+            <mat-card-subtitle>{{employee.role}}</mat-card-subtitle>
+            <mat-checkbox (change)="$event.source.checked = !$event.source.checked "  [checked]="isReviewed(employee)" (click)="openDialog(employee)">Reviewed</mat-checkbox>
+          </mat-card-header>
+          <mat-card-content>
+            <app-department-table
+              [employer]="employee"
+              [tableData]="tableMessages"
+              [baseData]="listEmployees"
+            ></app-department-table>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button (click)="takeList()"> Take LIST</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
 
-        </mat-card-actions>
-      </mat-card>
     </div>
 
-</div>
+  </div>
+

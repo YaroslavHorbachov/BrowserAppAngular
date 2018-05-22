@@ -23,7 +23,8 @@ export class DepartmentService {
     departmentMessages: this.base + '/api/department/listMessages',
     departmentReviewsList: this.base + '/api/department/listReview',
     departmentReviewsSet: this.base + '/api/department/setReview',
-    departmentReviewedEmployees: this.base + '/api/department/listReviewedEmployees'
+    departmentReviewedEmployees: this.base + '/api/department/listReviewedEmployees',
+    departmentReviewedList: this.base + '/api/department/takeReview'
   };
 
   departmentEmployees(json) {
@@ -44,6 +45,9 @@ export class DepartmentService {
 
   departmentReviewedEmployees(json) {
     return this._h.post(this.httpRequests.departmentReviewedEmployees, json, this.httpOptions.default);
+  }
+  departmentReviewedList() {
+    return this._h.get(this.httpRequests.departmentReviewedList, this.httpOptions.default);
   }
 
   submitDialog(employee) {

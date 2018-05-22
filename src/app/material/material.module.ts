@@ -4,10 +4,21 @@ import {
   MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
   MatIconModule,
   MatInputModule,
-  MatMenuModule, MatPaginatorModule, MatRadioModule, MatSelectModule, MatSnackBarModule, MatSortModule, MatTableModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
   MatTabsModule
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -33,9 +44,12 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatSelectModule,
     MatSnackBarModule,
     MatRadioModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatProgressBarModule
   ],
-  exports: [MatButtonModule,
+  exports: [
+    MatButtonModule,
+    MatProgressBarModule,
     MatCheckboxModule,
     MatCardModule,
     MatTabsModule,

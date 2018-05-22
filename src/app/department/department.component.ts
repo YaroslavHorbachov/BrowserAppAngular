@@ -35,6 +35,7 @@ export class DepartmentComponent implements OnInit {
   constructor(private _department: DepartmentService,
               private cdr: ChangeDetectorRef,
               private dialog: MatDialog) {
+  console.log('Table ', this.tableMessages)
   }
 
   ngOnInit() {
@@ -56,13 +57,13 @@ export class DepartmentComponent implements OnInit {
       return action && this._department.departmentReviewsSet(action)
         .mergeMap(() => this._department.departmentReviewsList(), (oVal, data) => data)
         .subscribe(data => {
-          render(data);
+          // render(data);
           console.log('Reviewed ', data);
         });
     });
 
     combineLatest(
-      this.getAllMessages(),
+      this._department.departmentMessages(),
       this._department.departmentReviewsList(),
       this._department.departmentReviewedEmployees({skip: this.skip, limit: this.limit})
     ).subscribe(([messages, reviewed, commented]) => {
@@ -82,6 +83,9 @@ export class DepartmentComponent implements OnInit {
       minHeight: 500,
       data: {employer}
     });
+  }
+  public takeList(){
+    this._department.departmentReviewedList().subscribe(console.log);
   }
 
   private getAllEmployees() {
@@ -123,7 +127,14 @@ export class DepartmentComponent implements OnInit {
 
   render() {
     this.allReview = data;
+    console.log(this.allReview)
+
+
     //  TODO REALISE TASK OF RERENDER LIST OF REVIEWED PERSONS , OPEN ALL BUTTON
+  }
+  public viewAllChange(){
+    this._department.departmentEmployees().subscribe(data => console.log())
+
   }
 
 }
